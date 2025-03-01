@@ -4,8 +4,8 @@
   :root, :host {
     --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-      "Courier New", monospace;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
     --color-red-600: #DC2626;
     --color-orange-200: #FBD38D;
     --color-orange-300: #F6AD55;
@@ -986,13 +986,15 @@
       color: var(--color-gray-700) !important;
       border: 0 !important;
       border-radius: 0.25rem !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     .dark & .apexcharts-tooltip {
       background-color: var(--color-gray-700) !important;
       color: var(--color-gray-400) !important;
       border-color: transparent !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     & .apexcharts-tooltip .apexcharts-tooltip-title {
       padding-top: 0.5rem !important;
@@ -1020,7 +1022,8 @@
       border-color: transparent !important;
       background-color: white !important;
       border-radius: 0.25rem !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     .dark & .apexcharts-xaxistooltip {
       color: var(--color-gray-400) !important;
@@ -1142,13 +1145,15 @@
       color: var(--color-gray-700) !important;
       border: 0 !important;
       border-radius: 0.25rem !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     .dark .apexcharts-canvas & {
       background-color: var(--color-gray-700) !important;
       color: var(--color-gray-400) !important;
       border-color: transparent !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     .apexcharts-canvas & .apexcharts-tooltip-title {
       padding-top: 0.5rem !important;
@@ -1328,7 +1333,8 @@
       border-color: transparent !important;
       background-color: white !important;
       border-radius: 0.25rem !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     .dark .apexcharts-canvas & {
       color: var(--color-gray-400) !important;
@@ -1777,6 +1783,9 @@
   .cursor-default {
     cursor: default;
   }
+  .cursor-help {
+    cursor: help;
+  }
   .cursor-not-allowed {
     cursor: not-allowed;
   }
@@ -2079,7 +2088,8 @@
       background-color: var(--color-gray-700) !important;
       color: var(--color-gray-400) !important;
       border-color: transparent !important;
-      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
     }
     & .apexcharts-canvas .apexcharts-tooltip .apexcharts-tooltip-title {
       background-color: var(--color-gray-600) !important;
@@ -2802,6 +2812,9 @@
   }
   .text-yellow-800 {
     color: var(--color-yellow-800);
+  }
+  .lowercase {
+    text-transform: lowercase;
   }
   .normal-case {
     text-transform: none;

@@ -5,6 +5,7 @@ namespace App\Domain\Strava\Activity;
 use App\Domain\Strava\Activity\SportType\SportType;
 use App\Domain\Strava\Activity\Stream\PowerOutput;
 use App\Domain\Strava\Activity\Stream\PowerOutputs;
+use App\Domain\Strava\EFtp\EFtpOutput;
 use App\Domain\Strava\Gear\GearId;
 use App\Domain\Strava\LeafletMap;
 use App\Domain\Weather\OpenMeteo\Weather;
@@ -36,6 +37,7 @@ final class Activity
     public const string DATE_TIME_FORMAT = 'Y-m-d\TH:i:s\Z';
 
     private ?int $maxCadence = null;
+    private ?EFtpOutput $eFtp = null;
     private ?PowerOutputs $bestPowerOutputs = null;
 
     #[ORM\Column(type: 'json', nullable: true)]
@@ -278,6 +280,11 @@ final class Activity
         return !$this->bestPowerOutputs->isEmpty();
     }
 
+    public function getEFtp(): ?EFtpOutput
+    {
+        return $this->eFtp;
+    }
+
     public function getBestAveragePowerForTimeInterval(int $timeInterval): ?PowerOutput
     {
         if (is_null($this->bestPowerOutputs)) {
@@ -290,6 +297,11 @@ final class Activity
     public function enrichWithBestPowerOutputs(PowerOutputs $bestPowerOutputs): void
     {
         $this->bestPowerOutputs = $bestPowerOutputs;
+    }
+
+    public function enrichWithEFtp(?EFtpOutput $eftp): void
+    {
+        $this->eFtp = $eftp;
     }
 
     public function getWeather(): ?Weather
