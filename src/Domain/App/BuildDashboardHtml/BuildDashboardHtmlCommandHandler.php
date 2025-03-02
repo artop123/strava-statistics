@@ -26,6 +26,8 @@ use App\Domain\Strava\Athlete\TimeInHeartRateZoneChart;
 use App\Domain\Strava\Athlete\Weight\AthleteWeightRepository;
 use App\Domain\Strava\Calendar\Months;
 use App\Domain\Strava\Challenge\Consistency\ChallengeConsistency;
+use App\Domain\Strava\EFtp\EFtpCalculator;
+use App\Domain\Strava\EFtp\EFtpHistoryChart;
 use App\Domain\Strava\Ftp\FtpHistoryChart;
 use App\Domain\Strava\Ftp\FtpRepository;
 use App\Domain\Strava\Trivia;
@@ -53,6 +55,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         private Environment $twig,
         private FilesystemOperator $buildStorage,
         private TranslatorInterface $translator,
+        private EFtpCalculator $eftpCalculator,
     ) {
     }
 
@@ -78,10 +81,13 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         );
         $dayTimeStats = DaytimeStats::create($allActivities);
 
+        $this->eftpCalculator->enrichWithActivities($allActivities);
+
         $weeklyDistanceCharts = [];
         $distanceBreakdowns = [];
         $yearlyDistanceCharts = [];
         $yearlyStatistics = [];
+        $eftpCharts = [];
 
         foreach ($activitiesPerActivityType as $activityType => $activities) {
             if ($activities->isEmpty()) {
@@ -96,6 +102,14 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                 now: $now,
             )->build()) {
                 $weeklyDistanceCharts[$activityType->value] = Json::encode($chartData);
+            }
+
+            if ($chartData = EFtpHistoryChart::create(
+                eftpCalculator: $this->eftpCalculator,
+                activityType: $activityType,
+                now: $now,
+            )->build()) {
+                $eftpCharts[$activityType->value] = Json::encode($chartData);
             }
 
             if ($activityType->supportsDistanceBreakdownStats()) {
@@ -172,6 +186,9 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                 'daytimeStats' => $dayTimeStats,
                 'distanceBreakdowns' => $distanceBreakdowns,
                 'trivia' => $trivia,
+                'eftpHistoryCharts' => !empty($eftpCharts) ? $eftpCharts : null,
+                'eftpNumberOfMonths' => $this->eftpCalculator->getNumberOfMonths(),
+                'eftpFactors' => EFtpCalculator::EFTP_FACTORS,
                 'ftpHistoryChart' => !$allFtps->isEmpty() ? Json::encode(
                     FtpHistoryChart::create(
                         ftps: $allFtps,
