@@ -514,7 +514,7 @@
                 inactiveClasses: 'text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300',
                 onShow: () => {
                     // Trigger a chart resize to make sure charts are displayed.
-                    renderedCharts.forEach((chart) => chart.resize());
+                    window.dispatchEvent(new Event('resize'));
                 },
             });
         });

@@ -794,7 +794,7 @@
                             <div class="p-3 space-y-2">
                                 <p>
                                     {% trans with {'{eftpNumberOfMonths}': eftpNumberOfMonths} %}
-                                        The eFTP charts display the highest estimated FTP values achieved over a {eftpNumberOfMonths}-month period. The eFTP for each activity is determined by multiplying the best average power by a factor. The highest result is chosen:
+                                        The charts display the highest estimated FTP values achieved over a {eftpNumberOfMonths}-month period. The FTP for each activity is determined by multiplying the best average power by a factor. The highest result is chosen:
                                     {% endtrans %}
                                 </p>
                                 <blockquote class="p-4 my-4 text-xs border-l-4 border-gray-300 bg-gray-50 italic leading-relaxed text-gray-600">
@@ -819,7 +819,7 @@
                             {% for activityType,chart in eftpHistoryCharts %}
                                 <li class="mr-2" role="presentation">
                                     <a href="#dashboard" data-tabs-target="#eftp{{ activityType }}" role="tab" aria-controls="eftp{{ activityType }}" class="inline-flex items-center justify-center p-2 border-b-2 rounded-t-lg group">
-                                        eFTP ({{ enum('App\\Domain\\Strava\\Activity\\ActivityType').from(activityType)|trans }})
+                                        {{ enum('App\\Domain\\Strava\\Activity\\ActivityType').from(activityType)|trans }}
                                     </a>
                                 </li>
                             {% endfor %}

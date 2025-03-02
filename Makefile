@@ -51,6 +51,9 @@ phpstan:
 csfix:
 	@make dcr cmd="vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php"
 
+update-snapshots:
+	@make dcr cmd="vendor/bin/phpunit -d --update-snapshots"
+
 delete-snapshots:
 	find . -name __snapshots__ -type d -prune -exec rm -rf {} \;
 
