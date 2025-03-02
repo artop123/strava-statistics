@@ -4,100 +4,24 @@
 
 <h1 align="center">Strava Statistics</h1>
 
-<p align="center">
-<a href="https://github.com/robiningelbrecht/strava-statistics/actions/workflows/ci.yml"><img src="https://github.com/robiningelbrecht/strava-statistics/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-<a href="https://github.com/robiningelbrecht/strava-statistics/actions/workflows/docker-image.yml"><img src="https://github.com/robiningelbrecht/strava-statistics/actions/workflows/docker-image.yml/badge.svg" alt="Publish Docker image"></a>
-<a href="https://raw.githubusercontent.com/robiningelbrecht/strava-statistics/refs/heads/master/LICENSE"><img src="https://img.shields.io/github/license/robiningelbrecht/strava-statistics?color=428f7e&logo=open%20source%20initiative&logoColor=white" alt="License"></a>
-<a href="https://hub.docker.com/r/robiningelbrecht/strava-statistics"><img src="https://img.shields.io/docker/image-size/robiningelbrecht/strava-statistics" alt="Docker Image Size"></a>
-<a href="https://hub.docker.com/r/robiningelbrecht/strava-statistics"><img src="https://img.shields.io/docker/pulls/robiningelbrecht/strava-statistics" alt="Docker pulls"></a>
-<a href="https://hub.docker.com/r/robiningelbrecht/strava-statistics"><img src="https://img.shields.io/docker/v/robiningelbrecht/strava-statistics?sort=semver" alt="Docker version"></a>
-</p>
-
----
-
 <h4 align="center">Strava Statistics is a self-hosted web app designed to provide you with better stats.</h4>
 
 <p align="center">
-  <a href="#-showcase">Showcase</a> •
-  <a href="#%EF%B8%8F-disclaimer">Disclaimer</a> •
-  <a href="#-wiki">Wiki</a> •
-  <a href="#-prerequisites">Prerequisites</a> •
-  <a href="#%EF%B8%8F-installation">Installation</a> •
-  <a href="#%EF%B8%8Fimport-and-build-statistics">Import and build statistics</a> •
-  <a href="#%EF%B8%8F-locales-and-translations">Locales and translations</a>
+  <a href="https://github.com/robiningelbrecht/strava-statistics">View the original project for installation instructions and more details</a>
 </p>
 
-<p align="center">
-  <a href="https://www.buymeacoffee.com/ingelbrecht" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;" ></a>
-</p>
+## What is different
 
-## 📸 Showcase
-
-https://github.com/user-attachments/assets/9aaaafd9-bc8f-4e1d-bb9d-45d3c661a080
-
-### Key Features
-
-* Dashboard with various stats and charts
-* Detailed list of all your activities
-* Monthly stats with calendar view
-* Gear stats
-* Eddington for biking and running activities
-* Detailed list of your segments and corresponding efforts
-* Heatmap
-* History of completed Strava challenges
-* History of activity photos
-* User badge
-
-## ⚠️ Disclaimer
-
-* 🛠️ __Under active development__: Expect frequent updates, bugs, and breaking changes.
-* 📦 __Backup before updates__: Always backup your Docker volumes before upgrading.
-* 🔄 __Stay up-to-date__: Make sure you're running the latest version for the best experience.
-* 🤓 __Check the release notes__: Always check the release notes to verify if there are any breaking changes.
-
-## 📚 Wiki
-
-Read [the wiki](https://github.com/robiningelbrecht/strava-statistics/wiki) before opening new issues. The question you have might be answered over there.
-
-## 🪄 Prerequisites
-
-You'll need a `Strava client ID`, `Strava client Secret` and a `refresh token`
-
-* Navigate to your [Strava API settings page](https://www.strava.com/settings/api).
-  Copy the `client ID` and `client secret`
-* Next you need to obtain a `Strava API refresh token`. 
-    * Navigate to https://developers.strava.com/docs/getting-started/#d-how-to-authenticate
-      and scroll down to "_For demonstration purposes only, here is how to reproduce the graph above with cURL:_"
-    * Follow the 11 steps explained there
-    * Make sure you change the `&scope=read` to `&scope=activity:read_all` to make sure your refresh token has access to all activities
-
-## 🛠️ Installation 
-
-> [!NOTE]
-> To run this application, you'll need [Docker](https://docs.docker.com/engine/install/) with [docker-compose](https://docs.docker.com/compose/install/).
-
-Start off by showing some ❤️ and give this repo a star. Then from your command line:
-
-```bash
-# Create a new directory
-> mkdir strava-statistics
-> cd strava-statistics
-
-# Create docker-compose.yml and copy the example contents into it
-> touch docker-compose.yml
-> nano docker-compose.yml
-
-# Create .env and copy the example contents into it. Configure as you like
-> touch .env
-> nano .env
-```
+* FTP is now calculated automatically from your activities. Each activity now displays its calculated eFTP
+* FTP chart has been replaced with estimated FTP, showing different FTP values for running and cycling
+* Activity intensity is determined based on estimated FTP
 
 ### docker-compose.yml
 
 ```yml
 services:
   app:
-    image: robiningelbrecht/strava-statistics:latest
+    image: artop/strava-statistics:latest
     volumes:
       - ./build:/var/www/build
       - ./storage/database:/var/www/storage/database
@@ -154,16 +78,10 @@ ATHLETE_WEIGHTS='{
     "YYYY-MM-DD": 74.6,
     "YYYY-MM-DD": 70.3
 }'
-# History of FTP. Needed to calculate activity stress level.
-# Check https://github.com/robiningelbrecht/strava-statistics/wiki for more info.
-FTP_VALUES='{
-    "YYYY-MM-DD": 198,
-    "YYYY-MM-DD": 220
-}'
 # Calculate estimated FTP (eFTP) based on the activities in the last X months
 # The eFTP will be used to calculate your activity intensity
 # To disable eFTP leave this empty
-CALCULATE_EFTP_BASED_ON_LAST_NUMBER_OF_MONTHS=
+CALCULATE_EFTP_BASED_ON_LAST_NUMBER_OF_MONTHS=4
 # Full URL with ntfy topic included. This topic will be used to notify you when a new HTML build has run.
 # Leave empty to disable notifications.
 NTFY_URL=''
@@ -176,36 +94,3 @@ ACTIVITIES_TO_SKIP_DURING_IMPORT='[]'
 #PUID=
 #PGID=
 ```
-
-### Importing challenges and trophies
-
-> [!IMPORTANT]
-> Only visible challenges on your public profile can be imported. Please make sure that your profile is public,
-> otherwise the app won't be able to import them
-
-#### Importing complete history
-
-Strava does not allow to fetch a complete history of your completed challenges and trophies.
-There's a little workaround if you'd still like to import these:
-* Navigate to https://www.strava.com/athletes/[YOUR_ATHLETE_ID]/trophy-case
-* Open the page's source code and copy everything
-  ![Trophy case source code](public/assets/images/readme/trophy-case-source-code.png)
-* Make sure you save the source code to the file `./storage/files/strava-challenge-history.html`
-* On the next import, all your challenges will be imported
-
-## ⚡️Import and build statistics
-
-```bash
-docker compose exec app bin/console app:strava:import-data
-docker compose exec app bin/console app:strava:build-files
-```
-
-## 🗺️ Locales and translations
-
-If you want to see a new locale added, please  [open a new issue](https://github.com/robiningelbrecht/strava-statistics/issues/new/choose). 
-Only do this if you are willing to help on the actual translation 🙃.
-
-## 💡 Feature request?
-
-For any feedback, help or feature requests, please [open a new issue](https://github.com/robiningelbrecht/strava-statistics/issues/new/choose). 
-Before you do, please read [the wiki](https://github.com/robiningelbrecht/strava-statistics/wiki). The question you have might be answered over there.
