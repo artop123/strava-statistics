@@ -566,7 +566,7 @@ final class Activity
      */
     public function getSortables(): array
     {
-        return array_filter([
+        $sortables = array_filter([
             'start-date' => $this->getStartDate()->getTimestamp(),
             'distance' => round($this->getDistance()->toFloat(), 2),
             'elevation' => $this->getElevation()->toFloat(),
@@ -576,6 +576,18 @@ final class Activity
             'heart-rate' => $this->getAverageHeartRate(),
             'calories' => $this->getCalories(),
         ]);
+
+        if (false == is_null($this->bestPowerOutputs)) {
+            foreach ($this->bestPowerOutputs as $powerOutput) {
+                $sortables['power-'.$powerOutput->getTimeIntervalInSeconds()] = $powerOutput->getPower();
+            }
+        }
+
+        if ($eftp = $this->getEFtp()) {
+            $sortables['ftp'] = $eftp->getPower();
+        }
+
+        return $sortables;
     }
 
     /**

@@ -30,3 +30,4 @@ phpstan.neon
 /cron
 /ollama
 ###> app-build ###
+tests/strava.db

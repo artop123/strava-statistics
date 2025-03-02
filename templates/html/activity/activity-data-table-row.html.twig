@@ -27,6 +27,7 @@
     <td class="px-6 py-2">
         {{ activity.getAveragePower() ? activity.getAveragePower() ~ '<span class="text-xs">w</span>': 'n/a' }}
     </td>
+    {% set timeIntervals =  [5, 60, 300, 600, 1200] %}
     {% for timeInterval in timeIntervals %}
         {% set powerOutput = activity.getBestAveragePowerForTimeInterval(timeInterval) %}
         {% if powerOutput %}
@@ -41,5 +42,16 @@
             <td class="px-2 py-2"></td>
         {% endif %}
     {% endfor %}
+    {% if activity.getEFtp() %}
+        <td class="px-2 py-2 border-l-2">
+            {{ activity.getEFtp().getPower() }}<span class="text-xs">w</span>
+        </td>
+        <td class="px-2 py-2 border-r-2">
+            {{ activity.getEFtp().getRelativePower() }}<span class="text-xs">w/kg</span>
+        </td>
+    {% else %}
+        <td class="px-2 py-2"></td>
+        <td class="px-2 py-2"></td>
+    {% endif %}
 </tr>
 {% endautoescape %}
