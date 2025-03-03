@@ -24,7 +24,7 @@
 * FTP chart has been replaced with estimated FTP, showing different FTP values for running and cycling
 * Activity intensity is determined based on estimated FTP
 * Activities are sortable by FTP and best power outputs
-* Weight can be imported [from a json file](#weight.json)
+* Weight can be imported [from a json file](#weightjson)
 
 * And some other minor fixes 👀
 
@@ -38,6 +38,7 @@ services:
       - ./build:/var/www/build
       - ./storage/database:/var/www/storage/database
       - ./storage/files:/var/www/storage/files
+      #- ./storage/weight.json:/data/weight.json
     env_file: ./.env
     ports:
       - 8080:8080
@@ -86,11 +87,12 @@ ATHLETE_BIRTHDAY=YYYY-MM-DD
 # History of weight (in kg or pounds, depending on UNIT_SYSTEM). Needed to calculate relative w/kg.
 # Can also be filepath to .json file. Remember to add that file to docker compose
 # Check https://github.com/robiningelbrecht/strava-statistics/wiki for more info.
-# ATHLETE_WEIGHTS='/data/weight.json'
-ATHLETE_WEIGHTS='{
-    "YYYY-MM-DD": 74.6,
-    "YYYY-MM-DD": 70.3
-}'
+ATHLETE_WEIGHTS='/data/weight.json'
+# Or input the values:
+#ATHLETE_WEIGHTS='{
+#    "YYYY-MM-DD": 74.6,
+#    "YYYY-MM-DD": 70.3
+#}'
 # Calculate estimated FTP (eFTP) based on the activities in the last X months
 # The eFTP will be used to calculate your activity intensity
 # To disable eFTP leave this empty
@@ -112,7 +114,7 @@ ACTIVITIES_TO_SKIP_DURING_IMPORT='[]'
 
 If you can fetch your weight from an API (such as Withings API etc) the weight can be imported from a JSON file.
 
-For example the <a href="https://github.com/artop123/withings-to-garmin-sync">WithingsToGarminSync</a> app produces a ```withings.json``` that can be modified to correct format using ```jq```
+For example the [WithingsToGarminSync](https://github.com/artop123/withings-to-garmin-sync) app produces a ```withings.json``` that can be modified to correct format using ```jq```
 
 ```bash
 jq 'map(select(.Weight > 0) | {(.Date[0:10]): (.Weight * 100 | round / 100)}) | add' withings.json > strava.json
