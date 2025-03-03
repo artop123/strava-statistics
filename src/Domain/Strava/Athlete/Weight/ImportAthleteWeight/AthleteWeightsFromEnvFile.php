@@ -45,6 +45,10 @@ final readonly class AthleteWeightsFromEnvFile
 
     public static function fromString(string $values, UnitSystem $unitSystem): self
     {
+        if (str_ends_with($values, '.json') && file_exists($values) && $content = file_get_contents($values)) {
+            $values = $content;
+        }
+
         try {
             return new self(
                 weightsFromEnv: Json::decode($values),
