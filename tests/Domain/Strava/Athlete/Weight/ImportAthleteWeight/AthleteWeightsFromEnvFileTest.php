@@ -16,14 +16,14 @@ class AthleteWeightsFromEnvFileTest extends TestCase
 
     public function testReadFromJsonShouldThrow(): void
     {
-        $path = realpath(__DIR__ . '/Data/invalid.json');
+        $path = realpath(__DIR__.'/Data/invalid.json');
         $this->expectExceptionObject(new \InvalidArgumentException('Invalid ATHLETE_WEIGHTS detected in .env file. Make sure the string is valid JSON'));
         AthleteWeightsFromEnvFile::fromString($path, UnitSystem::METRIC);
     }
 
     public function testReadFromJson(): void
     {
-        $path = realpath(__DIR__ . '/Data/weight.json');
+        $path = realpath(__DIR__.'/Data/weight.json');
         $this->assertFileExists($path, "File missing: $path");
 
         $result = AthleteWeightsFromEnvFile::fromString($path, UnitSystem::METRIC);
