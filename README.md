@@ -15,6 +15,8 @@
 * FTP is now calculated automatically from your activities. Each activity now displays its calculated eFTP
 * FTP chart has been replaced with estimated FTP, showing different FTP values for running and cycling
 * Activity intensity is determined based on estimated FTP
+* Activities are sortable by FTP and best power outputs
+* And some other minor fixes 👀
 
 ### docker-compose.yml
 

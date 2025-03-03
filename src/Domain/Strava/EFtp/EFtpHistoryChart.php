@@ -138,7 +138,7 @@ final readonly class EFtpHistoryChart
             ],
             'series' => [
                 [
-                    'name' => 'eFTP watts',
+                    'name' => 'FTP watts',
                     'color' => [
                         '#E34902',
                     ],
@@ -158,7 +158,7 @@ final readonly class EFtpHistoryChart
                     ],
                 ],
                 !empty($relativeEftpResults) ? [
-                    'name' => 'eFTP w/kg',
+                    'name' => 'FTP w/kg',
                     'type' => 'line',
                     'smooth' => false,
                     'color' => [
