@@ -13,4 +13,16 @@ class AthleteWeightsFromEnvFileTest extends TestCase
         $this->expectExceptionObject(new \InvalidArgumentException('Invalid ATHLETE_WEIGHTS detected in .env file. Make sure the string is valid JSON'));
         AthleteWeightsFromEnvFile::fromString('{"lol}', UnitSystem::METRIC);
     }
+
+    public function testReadFromJsonShouldThrow(): void
+    {
+        $this->expectExceptionObject(new \InvalidArgumentException('Invalid ATHLETE_WEIGHTS detected in .env file. Make sure the string is valid JSON'));
+        AthleteWeightsFromEnvFile::fromString('tests/TestData/invalid.json', UnitSystem::METRIC);
+    }
+
+    public function testReadFromJson(): void
+    {
+        $result = AthleteWeightsFromEnvFile::fromString('tests/TestData/weight.json', UnitSystem::METRIC);
+        $this->assertCount(3, $result->getAll());
+    }
 }
