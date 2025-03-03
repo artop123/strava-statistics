@@ -3163,6 +3163,11 @@
       inset: calc(var(--spacing) * 0);
     }
   }
+  .md\:bottom-0 {
+    @media (width >= 48rem) {
+      bottom: calc(var(--spacing) * 0);
+    }
+  }
   .md\:mr-0 {
     @media (width >= 48rem) {
       margin-right: calc(var(--spacing) * 0);
