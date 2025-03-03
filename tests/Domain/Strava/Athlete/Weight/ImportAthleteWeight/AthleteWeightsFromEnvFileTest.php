@@ -24,6 +24,8 @@ class AthleteWeightsFromEnvFileTest extends TestCase
     public function testReadFromJson(): void
     {
         $path = realpath(__DIR__ . '/Data/weight.json');
+        $this->assertFileExists($path, "File missing: $path");
+
         $result = AthleteWeightsFromEnvFile::fromString($path, UnitSystem::METRIC);
         $this->assertCount(3, $result->getAll());
     }
