@@ -4,6 +4,14 @@
 
 <h1 align="center">Strava Statistics</h1>
 
+<p align="center">
+<a href="https://github.com/artop123/strava-statistics/actions/workflows/ci.yml"><img src="https://github.com/artop123/strava-statistics/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+<a href="https://github.com/artop123/strava-statistics/actions/workflows/docker-image.yml"><img src="https://github.com/artop123/strava-statistics/actions/workflows/docker-image.yml/badge.svg" alt="Publish Docker image"></a>
+<a href="https://hub.docker.com/r/artop/strava-statistics"><img src="https://img.shields.io/docker/image-size/artop/strava-statistics" alt="Docker Image Size"></a>
+<a href="https://hub.docker.com/r/artop/strava-statistics"><img src="https://img.shields.io/docker/pulls/artop/strava-statistics" alt="Docker pulls"></a>
+</p>
+
+---
 <h4 align="center">Strava Statistics is a self-hosted web app designed to provide you with better stats.</h4>
 
 <p align="center">
