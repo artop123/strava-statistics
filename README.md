@@ -110,7 +110,7 @@ ACTIVITIES_TO_SKIP_DURING_IMPORT='[]'
 
 ### weight.json
 
-The weight can be imported from a JSON file. For example the [WithingsToGarminSync](https://github.com/artop123/withings-to-garmin-sync) produces a ```withings.json``` that can be modified to correct format using ```jq```
+The weight can be imported from a JSON file. For example the [WithingsToGarminSync](https://github.com/artop123/withings-to-garmin-sync) outputs ```withings.json``` that can be modified to correct format using ```jq```
 
 ```bash
 jq 'map(select(.Weight > 0) | {(.Date[0:10]): (.Weight * 100 | round / 100)}) | add' /path/to/withings.json > ./storage/weight.json
