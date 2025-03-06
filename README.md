@@ -2,7 +2,7 @@
   <img src="public/assets/images/logo.svg" width="250" alt="Logo" >
 </p>
 
-<h1 align="center">Strava Statistics</h1>
+<h1 align="center">Statistics for Strava</h1>
 
 <p align="center">
 <a href="https://github.com/artop123/strava-statistics/actions/workflows/ci.yml"><img src="https://github.com/artop123/strava-statistics/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
@@ -98,8 +98,9 @@ CALCULATE_EFTP_BASED_ON_LAST_NUMBER_OF_MONTHS=4
 # Full URL with ntfy topic included. This topic will be used to notify you when a new HTML build has run.
 # Leave empty to disable notifications.
 NTFY_URL=''
-# An array of activity ids to skip during import. 
+# Optional, an array of activity ids to skip during import. 
 # This allows you to skip specific activities during import.
+# ACTIVITIES_TO_SKIP_DURING_IMPORT='["123456789", "987654321"]'
 ACTIVITIES_TO_SKIP_DURING_IMPORT='[]'
 
 # The UID and GID to create/own files managed by strava-statistics

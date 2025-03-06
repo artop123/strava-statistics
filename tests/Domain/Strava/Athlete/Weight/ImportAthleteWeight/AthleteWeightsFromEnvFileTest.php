@@ -14,6 +14,12 @@ class AthleteWeightsFromEnvFileTest extends TestCase
         AthleteWeightsFromEnvFile::fromString('{"lol}', UnitSystem::METRIC);
     }
 
+    public function testItShouldThrowOnInvalidDate(): void
+    {
+        $this->expectExceptionObject(new \InvalidArgumentException('Invalid date "YYYY-MM-DD" set in ATHLETE_WEIGHTS in .env file'));
+        AthleteWeightsFromEnvFile::fromString('{"YYYY-MM-DD": 220}', UnitSystem::METRIC);
+    }
+
     public function testReadFromJsonShouldThrow(): void
     {
         $path = realpath(__DIR__.'/Data/invalid.json');

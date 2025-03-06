@@ -1,11 +1,11 @@
 '2 days of activity for 4 weeks': "2 jours d'activité par semaine pendant 4 semaines"
 Activities: Activités
 'Activity intensity': "Intensité d'activité"
-'Adaptive & Inclusive Sports': 'Adaptive & Inclusive Sports'
+'Adaptive & Inclusive Sports': 'Sports adaptés & inclusifs'
 Advanced: Avancé
 Afternoon: Après-midi
 'All activities': 'Toutes les activités'
-'All time': 'All time'
+'All time': 'Tout temps'
 'Alpine Ski': 'Ski alpin'
 Apr: Avr
 Aug: Aoû
@@ -49,15 +49,15 @@ Evening: Soirée
 'Fastest ride': 'Sortie vélo la plus rapide'
 Favourite: Favori
 Feb: Fév
-'Filter on KOM segments': 'Filter on KOM segments'
-'Filter on sport type': 'Filter on sport type'
-'Filter on starred segments': 'Filter on starred segments'
+'Filter on KOM segments': 'Filtrer sur les segments KOM'
+'Filter on sport type': 'Filter sur le type de sport'
+'Filter on starred segments': 'Filter sur les segments favoris'
 'First workout': 'Première séance'
 Fitness: Fitness
 'For example, an Eddington number of 70 would imply that a cyclist has cycled at least 70 km or miles in a day on at least 70 occasions. Achieving a high Eddington number is difficult, since moving from, say, 70 to 75 will (probably) require more than five new long-distance workouts, since any workout shorter than 75 km or miles will no longer be included in the reckoning.': "Par exemple, un nombre d'Eddington de 70 signifie qu'un cycliste a parcouru au moins 70 km ou miles en une journée à au moins 70 reprises. Atteindre un nombre d'Eddington élevé est difficile, car passer, disons, de 70 à 75 nécessitera probablement plus de cinq nouvelles séances d'entraînement de longue distance, étant donné que toute séance de moins de 75 km ou miles ne sera plus prise en compte dans le calcul."
 Fri: Ven
 Friday: Vendredi
-From: From
+From: Du
 Gear: Matériel
 'Gear stats': 'Statistiques de matériel'
 'Gear that is retired is disabled by default.': 'Le matériel retiré est désactivé par défaut.'
@@ -84,24 +84,24 @@ Jun: Juin
 KOM: KOM
 Kayaking: Kayak
 'Kite Surf': 'Kite Surf'
-'Last 45 days': 'Last 45 days'
-'Last 90 days': 'Last 90 days'
+'Last 45 days': 'Derniers 45 jours'
+'Last 90 days': 'Derniers 90 jours'
 'Latest start time': 'Départ le plus tardif'
 'Loading data...': 'Chargement des données...'
 Loading...: Chargement...
-'Longest workout': 'Longest workout'
+'Longest workout': 'Entraînement le plus long'
 Low: Bas
 Mar: Mar
 Max: Max
 May: Mai
 Medium: Moyen
-'Mind & Body Sports': 'Mind & Body Sports'
+'Mind & Body Sports': "Sports du corps et de l'esprit"
 Mon: Lun
 Monday: Lundi
 'Monthly stats': 'Statistiques mensuelles'
 Morning: Matin
 'Most consecutive days': 'Plus grand nombre de jours consécutifs'
-'Most elevation': 'Most elevation'
+'Most elevation': 'Plus grande élévation'
 'Most kudos': 'Plus de kudos'
 'Most recent activities': 'Activités les plus récentes'
 'Mountain Bike Rides': 'Sorties VTT'
@@ -111,9 +111,8 @@ Night: Nuit
 'Nordic Ski': 'Ski nordique'
 Nov: Nov
 Oct: Oct
-'Open user menu': 'Ouvrir le menu utilisateur'
 Other: Autre
-'Outdoor Sports': 'Outdoor Sports'
+'Outdoor Sports': "Sports d'extérieurs"
 Pace: Pace
 'Peak power outputs': 'Puissances maximales'
 Photos: Photos
@@ -123,7 +122,8 @@ Power: Puissance
 'Power distribution': 'Répartition de la puissance'
 'Powered by Strava': 'Propulsé par Strava'
 'Prev year': 'Année précédente'
-'Racquet & Paddle Sports': 'Racquet & Paddle Sports'
+'Racing Score': 'Racing Score'
+'Racquet & Paddle Sports': 'Sports de raquette & paddle'
 'Racquet Ball': Racquetball
 'Ride a total of 1250km': 'Effectuer un total de 1250km'
 'Ride a total of 200km': 'Effectuer un total de 200km'
@@ -145,7 +145,7 @@ Sep: Sep
 'Show information': 'Afficher les informations'
 'Since I began working out {numberOfDaysAgo} on {startDate}, I had {totalDaysOfWorkingOut} active days of working out.': "Depuis que j'ai commencé à m'entraîner il y a {numberOfDaysAgo} jours le {startDate}, j'ai eu {totalDaysOfWorkingOut} jours actifs d'entranement."
 Skateboard: Skateboard
-Skating: Skating
+Skating: Patinnage
 Snowboard: Snowboard
 Snowshoe: Raquettes
 Soccer: Football
@@ -153,9 +153,9 @@ Speed: Vitesse
 Squash: Squash
 'Stair Stepper': Steppeur
 'Stand Up Paddling': 'Stand Up Paddle'
+'Statistics for Strava': 'Statistiques Strava'
 'Stats per gear': 'Statistiques par matériel'
 'Stats per weekday': 'Statistiques par jour de la semaine'
-'Strava Statistics': 'Statistiques Strava'
 Sun: Dim
 Sunday: Dimanche
 Surfing: Surf
@@ -173,7 +173,7 @@ Thu: Jeu
 Thursday: Jeudi
 'Time / week': 'Temps / semaine'
 'Times completed': 'Nombre de fois accompli'
-To: To
+To: Au
 'Toggle sidebar': 'Basculer la barre latérale'
 'Top 10': 'Top 10'
 'Total carbon saved': 'Total carbon saved'
@@ -186,7 +186,7 @@ Tuesday: Mardi
 'Velo Mobiles': Vélomobiles
 'Very high': 'Très élevé'
 'View all': 'Voir tout'
-'View details': 'View details'
+'View details': 'Voir les détails'
 'Virtual Rides': 'Sorties virtuelles'
 'Virtual Row': 'Rameur virtuel'
 'Virtual Runs': 'Courses virtuelles'
@@ -204,20 +204,23 @@ Workout: Entrainement
 Year: Année
 'Yearly distances': 'Distances annuelles'
 Yoga: Yoga
-'Your badge': 'Your badge'
+'Your Strava badge': 'Your Strava badge'
+'Your Zwift badge': 'Your Zwift badge'
+'Your badge(s)': 'Your badge(s)'
 'Zone 1 (recovery)': 'Zone 1 (récupération)'
 'Zone 2 (aerobic)': 'Zone 2 (aérobie)'
 'Zone 3 (aerobic/anaerobic)': 'Zone 3 (aérobie/anaérobie)'
 'Zone 4 (anaerobic)': 'Zone 4 (anaérobie)'
 'Zone 5 (maximal)': 'Zone 5 (maximal)'
+'Zwift Statistics': 'Zwift Statistics'
 age: age
 bpm: bpm
-clear: clear
+clear: réinitialiser
 intensity: intensité
 intensityFactor: "facteur d'intensité"
 'max gradient': 'pente maximale'
 maxHeartRate: 'fréquence cardiaque max'
 n/a: n/a
 workouts: entrainements
-'{numberOfResults} results based on your active filters': '{numberOfResults} results based on your active filters'
-'{numberOfResults} routes based on your active filters': '{numberOfResults} routes based on your active filters'
+'{numberOfResults} results based on your active filters': '{numberOfResults} résultats basés sur vos filtres actifs'
+'{numberOfResults} routes based on your active filters': '{numberOfResults} routes basées sur vos filtres actifs'
