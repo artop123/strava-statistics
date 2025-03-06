@@ -121,7 +121,7 @@ NTFY_URL=''
 
 ### weight.json
 
-The weight can be imported from a JSON file. For example, the [WithingsToGarminSync](https://github.com/artop123/withings-to-garmin-sync) outputs ```withings.json``` file, which can be modified to the correct format using ```jq```
+The weight can be imported from a JSON file. For example, the [WithingsToGarminSync](https://github.com/artop123/withings-to-garmin-sync) outputs ```withings.json```, which can be modified to the correct format using ```jq```
 
 ```bash
 jq 'map(select(.Weight > 0) | {(.Date[0:10]): (.Weight * 100 | round / 100)}) | add' /path/to/withings.json > ./storage/weight.json
