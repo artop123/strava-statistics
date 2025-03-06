@@ -73,7 +73,7 @@ app-build-flowbite:
 app-bump:
 	git checkout master
 	git pull origin master
-	git checkout -b issue-bump
+	git branch | grep -q "issue-bump" && git checkout issue-bump || git checkout -b issue-bump
 	git fetch upstream
 	git merge upstream/master
 
