@@ -113,7 +113,6 @@ ZWIFT_RACING_SCORE=
 # Full URL with ntfy topic included. This topic will be used to notify you when a new HTML build has run.
 # Leave empty to disable notifications.
 NTFY_URL=''
-
 # The UID and GID to create/own files managed by strava-statistics
 # May only be necessary on Linux hosts, see File Permissions in Wiki
 #PUID=
