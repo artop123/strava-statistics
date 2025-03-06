@@ -6,6 +6,7 @@
 parameters:
     env(UNIT_SYSTEM): 'metric'
     env(SPORT_TYPES_TO_IMPORT): '[]'
+    env(ACTIVITY_VISIBILITIES_TO_IMPORT): '[]'
     env(ACTIVITIES_TO_SKIP_DURING_IMPORT): '[]'
     env(NUMBER_OF_NEW_ACTIVITIES_TO_PROCESS_PER_IMPORT): 250
     env(NTFY_URL): ''
@@ -15,6 +16,9 @@ parameters:
     env(MANIFEST_APP_URL): 'http://localhost:8080/'
     env(CALCULATE_EFTP_BASED_ON_LAST_NUMBER_OF_MONTHS): 4
     env(FTP_VALUES): '{}'
+    env(PROFILE_PICTURE_URL): ''
+    env(ZWIFT_LEVEL):
+    env(ZWIFT_RACING_SCORE):
 
 services:
     # default configuration for services in *this* file
@@ -83,6 +87,10 @@ services:
     GuzzleHttp\Client:
         class: GuzzleHttp\Client
 
+    App\Domain\App\ProfilePictureUrl:
+        factory: [ App\Domain\App\ProfilePictureUrl, 'fromOptionalString' ]
+        arguments: ['%env(string:PROFILE_PICTURE_URL)%']
+
     App\Domain\Integration\Notification\Ntfy\NtfyUrl:
         factory: [ App\Domain\Integration\Notification\Ntfy\NtfyUrl, 'fromOptionalString' ]
         arguments: ['%env(string:NTFY_URL)%']
@@ -107,6 +115,10 @@ services:
         class: App\Domain\Strava\Athlete\AthleteBirthDate
         factory: [ App\Domain\Strava\Athlete\AthleteBirthDate, 'fromString' ]
         arguments: ['%env(string:ATHLETE_BIRTHDAY)%']
+
+    App\Domain\Strava\Activity\ImportActivities\ActivityVisibilitiesToImport:
+        factory: [ 'App\Domain\Strava\Activity\ImportActivities\ActivityVisibilitiesToImport', from ]
+        arguments: [ '%env(json:ACTIVITY_VISIBILITIES_TO_IMPORT)%' ]
 
     App\Domain\Strava\Activity\SportType\SportTypesToImport:
         factory: [ 'App\Domain\Strava\Activity\SportType\SportTypesToImport', from ]
@@ -133,3 +145,11 @@ services:
         arguments: [ 
             '%env(int:default::CALCULATE_EFTP_BASED_ON_LAST_NUMBER_OF_MONTHS)%'
         ]
+
+    App\Domain\Zwift\ZwiftLevel:
+        factory: [ 'App\Domain\Zwift\ZwiftLevel', fromOptionalString ]
+        arguments: [ '%env(string:ZWIFT_LEVEL)%' ]
+
+    App\Domain\Zwift\ZwiftRacingScore:
+        factory: [ 'App\Domain\Zwift\ZwiftRacingScore', fromOptionalString ]
+        arguments: [ '%env(string:ZWIFT_RACING_SCORE)%' ]

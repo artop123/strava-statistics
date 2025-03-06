@@ -31,6 +31,7 @@ translation-extract:
 	@make console arg="translation:extract --force --prefix="" en_US --format=yaml --sort=ASC"
 	@make console arg="translation:extract --force --prefix="" nl_BE --format=yaml --sort=ASC"
 	@make console arg="translation:extract --force --prefix="" fr_FR --format=yaml --sort=ASC"
+	@make console arg="translation:extract --force --prefix="" zh_CN --format=yaml --sort=ASC"
 
 translation-debug:
 	@make console arg="debug:translation en_US"
@@ -66,6 +67,15 @@ app-build-files:
 
 app-build-flowbite:
 	npx @tailwindcss/cli -i public/assets/flowbite/tailwind.css -o public/assets/flowbite/tailwind.min.css
+
+# Add upstream before running this:
+# git remote add upstream https://github.com/robiningelbrecht/strava-statistics
+app-bump:
+	git checkout master
+	git pull origin master
+	git branch | grep -q "issue-bump" && git checkout issue-bump || git checkout -b issue-bump
+	git fetch upstream
+	git merge upstream/master
 
 app-build-all:
 	@make build-containers

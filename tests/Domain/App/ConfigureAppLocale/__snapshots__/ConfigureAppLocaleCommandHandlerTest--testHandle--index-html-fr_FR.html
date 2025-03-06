@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Statistiques Strava | Robin Ingelbrecht</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="theme-color" content="#F26822">
+    <meta name="mobile-web-app-title" content="Statistiques Strava | Robin Ingelbrecht">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link href="/manifest.json?0025176c-5652-11ee-923d-02424dd627d5" rel="manifest" crossorigin="">
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.svg">
+    <link href="/assets/flowbite/tailwind.min.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
+    <link href="/assets/leaflet/leaflet.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
+    <link href="/assets/data-table/clusterize.min.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
+</head>
+<body>
+<div class="antialiased bg-gray-50">
+    <!-- NAVIGATION -->
+    <nav class="bg-white border-b border-gray-200 px-4 py-2.5 fixed left-0 right-0 top-0 z-1100">
+        <div class="flex flex-wrap justify-between items-center">
+            <div class="flex justify-start items-center">
+                <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation" aria-controls="drawer-navigation" class="p-2 mr-2 text-gray-600 rounded-lg cursor-pointer md:hidden hover:text-gray-900 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100">
+                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    <svg aria-hidden="true" class="hidden w-6 h-6" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Basculer la barre lat&eacute;rale</span>
+                </button>
+                <a href="#" data-router-navigate="dashboard" class="flex items-center justify-between mr-4">
+                    <img src="assets/images/logo.svg" class="rounded-full mr-3 h-8" alt="Statistics for Strava Logo">
+                    <div>
+                        <div class="text-lg md:text-2xl font-semibold whitespace-nowrap">Statistiques Strava</div>
+                        <div class="text-xs font-normal leading-3 whitespace-nowrap">Propuls&eacute; par Strava</div>
+                    </div>
+
+                </a>
+            </div>
+            <div class="hidden md:flex items-center text-gray-500 lg:order-2 gap-x-2">
+                <a target="_blank" href="https://github.com/robiningelbrecht/strava-statistics" class="rounded-full">
+                    <svg class="w-7 h-7 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                            </div>
+        </div>
+    </nav>
+    <!-- SIDEBAR -->
+    <aside class="fixed top-0 left-0 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0 z-1001" aria-label="Sidenav" id="drawer-navigation">
+        <div class="max-h-[calc(100vh-160px)] overflow-y-auto py-5 px-3 h-full bg-white divide-y divide-gray-100">
+            <ul class="space-y-2 mb-2">
+                <li>
+                    <a href="#" data-router-navigate="dashboard" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                        </svg>
+                        <span class="ml-3">Tableau de bord</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="activities" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 16">
+                            <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM5 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0-3a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm0-3a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm10 6H9a1 1 0 0 1 0-2h6a1 1 0 0 1 0 2Zm0-3H9a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Zm0-3H9a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Z"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Toutes les activ...</span>
+                        <span class="bg-orange-400/40 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">12</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="monthly-stats" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+                            <path d="M0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm14-7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm-5-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm-5-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4Z"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Statistiques mensuelles</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="gear-stats" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+                            <path d="m7.164 3.805-4.475.38L.327 6.546a1.114 1.114 0 0 0 .63 1.89l3.2.375 3.007-5.006ZM11.092 15.9l.472 3.14a1.114 1.114 0 0 0 1.89.63l2.36-2.362.38-4.475-5.102 3.067Zm8.617-14.283A1.613 1.613 0 0 0 18.383.291c-1.913-.33-5.811-.736-7.556 1.01-1.98 1.98-6.172 9.491-7.477 11.869a1.1 1.1 0 0 0 .193 1.316l.986.985.985.986a1.1 1.1 0 0 0 1.316.193c2.378-1.3 9.889-5.5 11.869-7.477 1.746-1.745 1.34-5.643 1.01-7.556Zm-3.873 6.268a2.63 2.63 0 1 1-3.72-3.72 2.63 2.63 0 0 1 3.72 3.72Z"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Statistiques de mat&eacute;...</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="eddington" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 18 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1v14h16m0-9-3-2-3 5-3-2-3 4"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Eddington</span>
+                                                    <span class="bg-orange-400/40 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full ">6</span>
+                                                    <span class="bg-orange-400/40 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full ml-0.5">1</span>
+                                            </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="segments" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" fill="currentColor" viewbox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke-width="0"></g>
+                            <g stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g>
+                                <path d="M217.45557,38.544a35.9967,35.9967,0,0,0-57.937,40.96679L79.5105,159.51855a36.05906,36.05906,0,0,0-40.96607,7.0254H38.544a36.00029,36.00029,0,1,0,57.93737,9.94531L176.4895,96.48145A35.99663,35.99663,0,0,0,217.45557,38.544ZM72.48584,200.48535a12.00027,12.00027,0,0,1-16.97119-16.9707h-.00049a12.00044,12.00044,0,0,1,16.97168,16.9707Zm128-128a12.01673,12.01673,0,0,1-16.969.00244l-.0022-.00244a12.0001,12.0001,0,1,1,16.97119,0Z"></path>
+                            </g>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Segments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="heatmap" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke-width="0"></g>
+                            <g stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g>
+                                <path d="M3 8.70938C3 7.23584 3 6.49907 3.39264 6.06935C3.53204 5.91678 3.70147 5.79466 3.89029 5.71066C4.42213 5.47406 5.12109 5.70705 6.51901 6.17302C7.58626 6.52877 8.11989 6.70665 8.6591 6.68823C8.85714 6.68147 9.05401 6.65511 9.24685 6.60952C9.77191 6.48541 10.2399 6.1734 11.176 5.54937L12.5583 4.62778C13.7574 3.82843 14.3569 3.42876 15.0451 3.3366C15.7333 3.24444 16.4168 3.47229 17.7839 3.92799L18.9487 4.31624C19.9387 4.64625 20.4337 4.81126 20.7169 5.20409C21 5.59692 21 6.11871 21 7.16229V15.2907C21 16.7642 21 17.501 20.6074 17.9307C20.468 18.0833 20.2985 18.2054 20.1097 18.2894C19.5779 18.526 18.8789 18.293 17.481 17.827C16.4137 17.4713 15.8801 17.2934 15.3409 17.3118C15.1429 17.3186 14.946 17.3449 14.7532 17.3905C14.2281 17.5146 13.7601 17.8266 12.824 18.4507L11.4417 19.3722C10.2426 20.1716 9.64311 20.5713 8.95493 20.6634C8.26674 20.7556 7.58319 20.5277 6.21609 20.072L5.05132 19.6838C4.06129 19.3538 3.56627 19.1888 3.28314 18.7959C3 18.4031 3 17.8813 3 16.8377V8.70938Z" stroke="currentColor" stroke-width="2"></path>
+                                <path d="M9 6.63867V20.5" stroke="currentColor" stroke-width="2"></path>
+                                <path d="M15 3V17" stroke="currentColor" stroke-width="2"></path>
+                            </g>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Heatmap</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="challenges" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 20 20">
+                            <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"></path>
+                            <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Challenges</span>
+                        <span class="bg-orange-400/40 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">2</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-router-navigate="photos" class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-gray-100 aria-selected:bg-gray-100 group">
+                        <svg class="shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 24 24">
+                            <path d="M19 5h-1.382l-.171-.342A2.985 2.985 0 0 0 14.764 3H9.236a2.984 2.984 0 0 0-2.683 1.658L6.382 5H5a3 3 0 0 0-3 3v11a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a3 3 0 0 0-3-3Zm-3.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"></path>
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Photos</span>
+                        <span class="bg-orange-400/40 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">20</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="absolute flex flex-col justify-center left-0 p-4 w-full bg-white z-20 md:bottom-0">
+                <div class="flex justify-center gap-px">
+                    <a href="https://www.strava.com/athletes/100" target="_blank" class="p-2 text-gray-500 rounded-sm cursor-pointer hover:text-[#fc4c01] hover:bg-gray-100">
+                        <svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke-width="0"></g>
+                            <g stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g>
+                                <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"></path>
+                            </g>
+                        </svg>
+                    </a>
+                    <a href="#" data-model-content-url="badge.html" title="Show badge" class="p-2 text-gray-500 rounded-sm cursor-pointer hover:text-[#fc4c01] hover:bg-gray-100">
+                        <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 507.9 507.9" xml:space="preserve">
+                        <g stroke-width="0"></g>
+                            <g stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g>
+                                <g>
+                                    <g>
+                                        <path d="M465.7,96.55H324.9v-21.6c0-7.8-6.3-14.1-14.1-14.1H197.2c-7.8,0-14.1,6.3-14.1,14.1v21.6H42.3c-23.3,0-42.3,19-42.3,42.3 v265.9c0,23.3,19,42.3,42.3,42.3h423.3c23.3,0,42.3-19,42.3-42.3v-265.9C508,115.55,489,96.55,465.7,96.55z M296.7,89.05v32.1 h-85.4v-32.1H296.7z M465.7,418.85H42.3c-7.8,0-14.1-6.3-14.1-14.1v-265.9c0-7.8,6.3-14.1,14.1-14.1h140.8v10.5 c0,7.8,6.3,14.1,14.1,14.1h113.6c7.8,0,14.1-6.3,14.1-14.1v-10.5h140.7c7.8,0,14.1,6.3,14.1,14.1v265.9h0.1 C479.8,412.55,473.5,418.85,465.7,418.85z"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M440.6,173.65H254c-7.8,0-14.1,6.3-14.1,14.1s6.3,14.1,14.1,14.1h186.6c7.8,0,14.1-6.3,14.1-14.1 S448.4,173.65,440.6,173.65z"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M440.6,241.95H254c-7.8,0-14.1,6.3-14.1,14.1s6.3,14.1,14.1,14.1h186.6c7.8,0,14.1-6.3,14.1-14.1 C454.7,248.25,448.4,241.95,440.6,241.95z"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M440.6,310.35H254c-7.8,0-14.1,6.3-14.1,14.1c0,7.8,6.3,14.1,14.1,14.1h186.6c7.8,0,14.1-6.3,14.1-14.1 S448.4,310.35,440.6,310.35z"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M180.1,160.45H67.4c-7.8,0-14.1,6.3-14.1,14.1v130.5c0,7.8,6.3,14.1,14.1,14.1h112.7c7.8,0,14.1-6.3,14.1-14.1v-130.5 C194.2,166.85,187.9,160.45,180.1,160.45z M166,290.95H81.6v-102.2H166V290.95z"></path>
+                                    </g>
+                                </g>
+                                <g>
+                                    <g>
+                                        <path d="M180.1,354.85H67.4c-7.8,0-14.1,6.3-14.1,14.1c0,7.8,6.3,14.1,14.1,14.1h112.7c7.8,0,14.1-6.3,14.1-14.1 S187.9,354.85,180.1,354.85z"></path>
+                                    </g>
+                                </g>
+                            </g>
+                    </svg>
+                    </a>
+                </div>
+                <div class="flex justify-center gap-x-1 text-xs text-center text-gray-500">
+                    <span>v0.4.23</span>
+                    <span class="hidden" data-latest-version data-current-version="v0.4.23">
+                        (latest: <a class="underline" href="https://github.com/robiningelbrecht/strava-statistics/releases/tag/%5BLATEST_VERSION%5D">[LATEST_VERSION]</a>)
+                    </span>
+                </div>
+                <div class="text-xs text-center text-gray-500">
+                    Mis &agrave; jour le 17-10-2023 16:15
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="p-4 md:ml-64 h-auto min-h-screen pt-20 text-gray-900">
+        <div id="spinner" class="items-center justify-center h-auto min-h-screen hidden">
+            <div role="status">
+                <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-orange-500" viewbox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"></path>
+                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"></path>
+                </svg>
+                <span class="sr-only">Chargement...</span>
+            </div>
+        </div>
+        <!-- JS LOADED CONTENT -->
+        <div id="js-loaded-content"></div>
+        <div id="modal-skeleton" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-1500 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-7xl max-h-full">
+                <!-- Modal spinner -->
+                <div class="spinner hidden p-4 items-center justify-center h-auto bg-white rounded-lg shadow-sm">
+                    <div role="status">
+                        <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin fill-orange-500" viewbox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"></path>
+                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"></path>
+                        </svg>
+                        <span class="sr-only">Chargement...</span>
+                    </div>
+                </div>
+                <!-- Modal content -->
+                <div id="modal-content" class="relative bg-white rounded-lg shadow-sm">
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="/assets/echarts/echarts.min.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/lazyload.min.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/flowbite/flowbite.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/utils.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+<script src="/assets/router.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+<script src="/assets/leaflet/leaflet.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/leaflet/leaflet.polyline.encoded.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/leaflet/leaflet.fly.to.places.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/leaflet/leaflet-map.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+<script src="/assets/leaflet/heatmap.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+<script src="/assets/data-table/clusterize.min.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/data-table/data-table.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+
+<script type="module">
+    import LeafletMap from "./assets/leaflet/leaflet-map.js";
+    import Heatmap from "./assets/leaflet/heatmap.js";
+    import DataTable from "./assets/data-table/data-table.js";
+    import Router from "./assets/router.js";
+
+    // Boot router.
+    const router = Router(document.querySelector("main"));
+    router.boot();
+
+    // Enable image lazy load.
+    const lazyLoad = new LazyLoad({
+        thresholds: "50px",
+    });
+
+    const modalSkeletonNode = document.getElementById('modal-skeleton');
+    const modalContent = modalSkeletonNode.querySelector('#modal-content');
+    const modalSpinner = modalSkeletonNode.querySelector('.spinner');
+    let modal = null;
+    let renderedCharts = [];
+    document.addEventListener('pageWasLoaded', (e) => {
+        if (modal) {
+            // Close any old modals when a new page is loaded.
+            modal.hide();
+        }
+
+        document.querySelectorAll('div[data-dataTable-settings]').forEach(function ($dataTableWrapperNode) {
+            DataTable($dataTableWrapperNode).render()
+        });
+
+        initElements(document);
+
+        if (e.detail && e.detail.modalId) {
+            // Open modal.
+            openModal(e.detail.modalId);
+        }
+    });
+    document.addEventListener('pageWasLoaded.heatmap', () => {
+        const $heatmapWrapper = document.querySelector('.heatmap-wrapper');
+        Heatmap($heatmapWrapper).render();
+    });
+    document.addEventListener('dataTableClusterWasChanged', () => {
+        initModals(document);
+    });
+
+    const initElements = (rootNode) => {
+        renderedCharts = [];
+        lazyLoad.update();
+
+        initTabs();
+        initPopovers();
+        initTooltips();
+        initDropdowns();
+        initAccordions();
+        initModals(rootNode);
+
+        // Render charts.
+        rootNode.querySelectorAll('[data-echarts-options]').forEach(function (chartNode) {
+            const chart = echarts.init(chartNode);
+            window.addEventListener('resize', function () {
+                chart.resize();
+            });
+            const chartOptions = JSON.parse(chartNode.getAttribute('data-echarts-options'));
+            chart.setOption(chartOptions);
+            renderedCharts.push(chart);
+        });
+
+        // Render Leaflet maps.
+        rootNode.querySelectorAll('[data-leaflet]').forEach(function (mapNode) {
+            const data = JSON.parse(mapNode.getAttribute('data-leaflet'));
+            LeafletMap(mapNode, data).render();
+        });
+    };
+
+    const initModals = (rootNode) => {
+        const modalLinks = rootNode.querySelectorAll('a[data-model-content-url]');
+
+        modalLinks.forEach(function (node) {
+            node.addEventListener('click', function (e) {
+                e.preventDefault();
+                const modalId = node.getAttribute('data-model-content-url');
+                openModal(modalId);
+                // Add modal to history state.
+                router.pushCurrentRouteToHistoryState(modalId);
+            });
+        });
+    };
+
+    const initTabs = () => {
+        document.querySelectorAll('[data-tabs-toggle]').forEach(function ($triggerEl) {
+            const tabItems = [];
+            $triggerEl
+                .querySelectorAll('[role="tab"]')
+                .forEach(function ($triggerEl) {
+                    tabItems.push({
+                        id: $triggerEl.getAttribute('data-tabs-target'),
+                        triggerEl: $triggerEl,
+                        targetEl: document.querySelector($triggerEl.getAttribute('data-tabs-target')),
+                    });
+                });
+
+            new Tabs($triggerEl, tabItems, {
+                defaultTabId: null,
+                activeClasses: 'text-strava-orange border-strava-orange hover:text-gray-600 hover:border-gray-300',
+                inactiveClasses: 'text-gray-500 hover:text-gray-600 border-gray-100 hover:border-gray-300',
+                onShow: () => {
+                    // Trigger a chart resize to make sure charts are displayed.
+                    window.dispatchEvent(new Event('resize'));
+                },
+            });
+        });
+    }
+
+    export const openModal = (modalId) => {
+        if (modal) {
+            // Only allow one open modal at a time.
+            modal.hide();
+        }
+
+        // Show loading state.
+        modalSpinner.classList.remove('hidden');
+        modalSpinner.classList.add('flex');
+
+        modal = new Modal(modalSkeletonNode, {
+            placement: 'bottom',
+            closable: true,
+            backdropClasses: 'bg-gray-900/50 fixed inset-0 z-1400',
+            onShow: async () => {
+                const response = await fetch(modalId, {cache: 'no-store'});
+                // Remove loading state.
+                modalSpinner.classList.add('hidden');
+                modalSpinner.classList.remove('flex');
+
+                modalContent.innerHTML = await response.text();
+                // Init elements in modal.
+                initElements(modalSkeletonNode);
+                // Modal close event listeners.
+                modalContent.querySelector('button.close').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.hide();
+                    router.pushCurrentRouteToHistoryState();
+                });
+
+                document.body.addEventListener('keydown', (e) => {
+                    if (e.key !== 'Escape') {
+                        return;
+                    }
+                    router.pushCurrentRouteToHistoryState();
+                }, {once: true});
+
+                document.body.addEventListener('click', (e) => {
+                    if (e.target.id !== 'modal-skeleton') {
+                        return;
+                    }
+                    router.pushCurrentRouteToHistoryState();
+                }, {once: true});
+            },
+            onHide: () => {
+                modalContent.innerHTML = '';
+            }
+        });
+
+        modal.show();
+    }
+
+    const updateGithubLatestRelease = async () => {
+        const $latestVersionEl = document.querySelector('[data-latest-version]');
+        const currentVersion = $latestVersionEl.getAttribute('data-current-version')
+        const latestVersion = await (await (await fetch('https://api.github.com/repos/robiningelbrecht/strava-statistics/releases/latest')).json())['name'];
+
+        if (currentVersion !== latestVersion) {
+            const $latestVersionLink = $latestVersionEl.querySelector('a');
+            $latestVersionLink.setAttribute('href', $latestVersionLink.getAttribute('href').replace('[LATEST_VERSION]', latestVersion));
+            $latestVersionLink.innerHTML = $latestVersionLink.innerHTML.replace('[LATEST_VERSION]', latestVersion);
+            $latestVersionEl.classList.remove('hidden');
+        }
+    }
+
+    updateGithubLatestRelease();
+</script>
+</body>
+</html>
