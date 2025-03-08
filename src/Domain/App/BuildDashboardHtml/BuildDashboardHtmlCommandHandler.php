@@ -153,6 +153,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         $activityTotals = ActivityTotals::getInstance(
             activities: $allActivities,
             now: $now,
+            translator: $this->translator,
         );
         $trivia = Trivia::getInstance($allActivities);
         $bestAllTimePowerOutputs = $this->activityPowerRepository->findBestForActivityType(ActivityType::RIDE);

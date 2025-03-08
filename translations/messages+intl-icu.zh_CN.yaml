@@ -60,8 +60,8 @@ Friday: 星期五
 From: 从
 Gear: 装备
 'Gear stats': 装备统计
+"Gear that hasn't been used in the last three months, is disabled by default.": 过去三个月未使用的装备默认禁用。
 'Gear that is retired is disabled by default.': 退役的装备默认禁用。
-"Gear that that hasn't been used in the last three months, is disabled by default.": 过去三个月未使用的装备默认禁用。
 Golf: 高尔夫
 'Gravel Rides': 砾石骑行
 HIIT: 高强度间歇训练
@@ -143,7 +143,7 @@ Search: 搜索
 Segments: 路段
 Sep: 九月
 'Show information': 显示信息
-'Since I began working out {numberOfDaysAgo} on {startDate}, I had {totalDaysOfWorkingOut} active days of working out.': '从{startDate}至今，我已经锻炼了{totalDaysOfWorkingOut}天。'
+'Since I began working out {numberOfDaysAgo} on {startDate}, I had {totalDaysOfWorkingOut} active days of working out.': '自从我在{startDate}开始锻炼{numberOfDaysAgo}以来，我已经锻炼了{totalDaysOfWorkingOut}天。'
 Skateboard: 滑板
 Skating: 滑冰
 Snowboard: 单板滑雪
@@ -214,6 +214,7 @@ Yoga: 瑜伽
 'Zone 5 (maximal)': 区域5（最大）
 'Zwift Statistics': 'Zwift Statistics'
 age: 年龄
+and: and
 bpm: 拍子数
 clear: 清除
 intensity: 强度
