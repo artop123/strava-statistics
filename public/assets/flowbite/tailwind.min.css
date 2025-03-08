@@ -1,4 +1,4 @@
-/*! tailwindcss v4.0.10 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.0.12 | MIT License | https://tailwindcss.com */
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
@@ -33,6 +33,7 @@
     --color-gray-700: #374151;
     --color-gray-800: #1F2937;
     --color-gray-900: #111827;
+    --color-black: #000000;
     --color-white: #ffffff;
     --spacing: 0.25rem;
     --breakpoint-sm: 40rem;
@@ -88,6 +89,7 @@
     );
     --text-xxs: 0.625rem;
     --color-strava-orange: #F26722;
+    --color-grey-yo: #cccccc;
   }
 }
 @layer base {
@@ -2529,9 +2531,6 @@
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
-  .text-xxs {
-    font-size: var(--text-xxs);
-  }
   .apexcharts-datalabels {
     .apexcharts-canvas & .apexcharts-text.apexcharts-pie-label {
       font-size: 0.75rem,[object Object] !important;
@@ -2580,6 +2579,9 @@
     .dark .datatable-wrapper .datatable-bottom & {
       color: var(--color-gray-400);
     }
+  }
+  .text-xxs {
+    font-size: var(--text-xxs);
   }
   .leading-3 {
     --tw-leading: calc(var(--spacing) * 3);
