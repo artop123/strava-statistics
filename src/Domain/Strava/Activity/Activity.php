@@ -66,7 +66,7 @@ final class Activity
         #[ORM\Column(type: 'integer')]
         private Meter $elevation,
         #[ORM\Embedded(class: Coordinate::class)]
-        private readonly ?Coordinate $startingCoordinate,
+        private ?Coordinate $startingCoordinate,
         #[ORM\Column(type: 'integer', nullable: true)]
         private readonly ?int $calories,
         #[ORM\Column(type: 'integer', nullable: true)]
@@ -237,6 +237,13 @@ final class Activity
     public function getStartingCoordinate(): ?Coordinate
     {
         return $this->startingCoordinate;
+    }
+
+    public function updateStartingCoordinate(?Coordinate $coordinate): self
+    {
+        $this->startingCoordinate = $coordinate;
+
+        return $this;
     }
 
     public function getKudoCount(): int
@@ -517,17 +524,17 @@ final class Activity
 
     public function getLeafletMap(): ?LeafletMap
     {
-        if (!$this->getStartingCoordinate()) {
+        if (!$this->getPolyline()) {
             return null;
-        }
-        if ($this->getSportType()->supportsReverseGeocoding()) {
-            return LeafletMap::REAL_WORLD;
         }
         if (!$this->isZwiftRide()) {
             return LeafletMap::REAL_WORLD;
         }
+        if (!$startingCoordinate = $this->getStartingCoordinate()) {
+            return null;
+        }
 
-        return LeafletMap::forZwiftStartingCoordinate($this->getStartingCoordinate());
+        return LeafletMap::forZwiftStartingCoordinate($startingCoordinate);
     }
 
     public function getLocation(): ?Location
