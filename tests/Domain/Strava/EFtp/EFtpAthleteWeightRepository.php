@@ -6,6 +6,7 @@ namespace App\Tests\Domain\Strava\EFtp;
 
 use App\Domain\Strava\Athlete\Weight\AthleteWeight;
 use App\Domain\Strava\Athlete\Weight\AthleteWeightRepository;
+use App\Domain\Strava\Athlete\Weight\AthleteWeights;
 use App\Infrastructure\ValueObject\Measurement\Mass\Gram;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 
@@ -34,6 +35,13 @@ final class EFtpAthleteWeightRepository implements AthleteWeightRepository
     public function find(SerializableDateTime $on): AthleteWeight
     {
         return AthleteWeight::fromState($on, Gram::from($this->weight * 1000));
+    }
+
+    public function findAll(): AthleteWeights
+    {
+        return AthleteWeights::fromArray([
+            AthleteWeight::fromState($on, Gram::from($this->weight * 1000)),
+        ]);
     }
 
     public function build(): AthleteWeightRepository

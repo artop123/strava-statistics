@@ -45,6 +45,19 @@ final readonly class DbalAthleteWeightRepository extends DbalRepository implemen
         return $this->hydrate($result);
     }
 
+    public function findAll(): AthleteWeights
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder->select('*')
+            ->from('AthleteWeight')
+            ->orderBy('`on`', 'DESC');
+
+        return AthleteWeights::fromArray(array_map(
+            fn (array $result) => $this->hydrate($result),
+            $queryBuilder->executeQuery()->fetchAllAssociative()
+        ));
+    }
+
     /**
      * @param array<string, mixed> $result
      */
