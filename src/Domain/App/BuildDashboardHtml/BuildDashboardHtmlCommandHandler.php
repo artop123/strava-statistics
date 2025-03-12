@@ -24,6 +24,7 @@ use App\Domain\Strava\Activity\YearlyDistance\YearlyStatistics;
 use App\Domain\Strava\Athlete\HeartRateZone;
 use App\Domain\Strava\Athlete\TimeInHeartRateZoneChart;
 use App\Domain\Strava\Athlete\Weight\AthleteWeightRepository;
+use App\Domain\Strava\Athlete\Weight\WeightHistoryChart;
 use App\Domain\Strava\Calendar\Months;
 use App\Domain\Strava\Challenge\Consistency\ChallengeConsistency;
 use App\Domain\Strava\EFtp\EFtpCalculator;
@@ -67,6 +68,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         $allActivities = $this->activitiesEnricher->getEnrichedActivities();
         $activitiesPerActivityType = $this->activitiesEnricher->getActivitiesPerActivityType();
         $allFtps = $this->ftpRepository->findAll();
+        $allWeights = $this->athleteWeightRepository->findAll();
         $allYears = Years::create(
             startDate: $allActivities->getFirstActivityStartDate(),
             endDate: $now
@@ -193,6 +195,12 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                 'ftpHistoryChart' => !$allFtps->isEmpty() ? Json::encode(
                     FtpHistoryChart::create(
                         ftps: $allFtps,
+                        now: $now
+                    )->build()
+                ) : null,
+                'weightHistoryChart' => $allWeights->count() >= 5 ? Json::encode(
+                    WeightHistoryChart::create(
+                        weights: $allWeights,
                         now: $now
                     )->build()
                 ) : null,

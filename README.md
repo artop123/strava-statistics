@@ -25,6 +25,7 @@
 * Activity intensity is determined based on estimated FTP
 * Activities are sortable by FTP and best power outputs
 * Weight can be imported [from a json file](#weightjson)
+* Weight history chart is displayed if there is atleast five measurements
 * And some other minor fixes 👀
 
 ### docker-compose.yml

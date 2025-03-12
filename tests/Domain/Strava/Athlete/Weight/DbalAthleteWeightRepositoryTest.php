@@ -90,6 +90,35 @@ class DbalAthleteWeightRepositoryTest extends ContainerTestCase
         );
     }
 
+    public function testFindAll(): void
+    {
+        $weightOne = AthleteWeightBuilder::fromDefaults()
+            ->withOn(SerializableDateTime::fromString('2023-04-01'))
+            ->withWeightInGrams(Gram::from(74000))
+            ->build();
+        $this->athleteWeightRepository->save($weightOne);
+        $WeightTwo = AthleteWeightBuilder::fromDefaults()
+            ->withOn(SerializableDateTime::fromString('2023-05-25'))
+            ->withWeightInGrams(Gram::from(75000))
+            ->build();
+        $this->athleteWeightRepository->save($WeightTwo);
+        $weightThree = AthleteWeightBuilder::fromDefaults()
+            ->withOn(SerializableDateTime::fromString('2023-08-01'))
+            ->withWeightInGrams(Gram::from(70000))
+            ->build();
+        $this->athleteWeightRepository->save($weightThree);
+        $weightFour = AthleteWeightBuilder::fromDefaults()
+            ->withOn(SerializableDateTime::fromString('2023-09-24'))
+            ->withWeightInGrams(Gram::from(60000))
+            ->build();
+        $this->athleteWeightRepository->save($weightFour);
+
+        $this->assertEquals(
+            4,
+            $this->athleteWeightRepository->findAll()->count()
+        );
+    }
+
     public function testItShouldThrowWhenNotFound(): void
     {
         $weightOne = AthleteWeightBuilder::fromDefaults()
