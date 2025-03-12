@@ -13,4 +13,6 @@ interface AthleteWeightRepository
     public function save(AthleteWeight $weight): void;
 
     public function find(SerializableDateTime $on): AthleteWeight;
+
+    public function findAll(): AthleteWeights;
 }

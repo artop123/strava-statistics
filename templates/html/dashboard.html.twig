@@ -828,6 +828,13 @@
                                     </a>
                                 </li>
                             {% endfor %}
+                            {% if weightHistoryChart %}
+                                <li class="mr-2" role="presentation">
+                                    <a href="#dashboard" data-tabs-target="#weight" role="tab" aria-controls="weight" class="inline-flex items-center justify-center p-2 border-b-2 rounded-t-lg group">
+                                        {{ "Weight"|trans }}
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                 {% endif %}
@@ -842,6 +849,11 @@
                             <div class="h-full min-h-[16rem]" data-echarts-options='{{ chart }}'></div>
                         </div>
                     {% endfor %}
+                    {% if weightHistoryChart %}
+                        <div id="weight" role="tabpanel" aria-labelledby="ftp-tab">
+                            <div class="h-full min-h-[16rem]" data-echarts-options='{{ weightHistoryChart }}'></div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}
