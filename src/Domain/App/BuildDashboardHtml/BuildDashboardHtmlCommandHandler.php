@@ -18,7 +18,7 @@ use App\Domain\Strava\Activity\Stream\BestPowerOutputs;
 use App\Domain\Strava\Activity\Stream\PowerOutputChart;
 use App\Domain\Strava\Activity\WeekdayStats\WeekdayStats;
 use App\Domain\Strava\Activity\WeekdayStats\WeekdayStatsChart;
-use App\Domain\Strava\Activity\WeeklyDistanceChart;
+use App\Domain\Strava\Activity\WeeklyDistanceTimeChart;
 use App\Domain\Strava\Activity\YearlyDistance\YearlyDistanceChart;
 use App\Domain\Strava\Activity\YearlyDistance\YearlyStatistics;
 use App\Domain\Strava\Athlete\HeartRateZone;
@@ -85,7 +85,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
 
         $this->eftpCalculator->enrichWithActivities($allActivities);
 
-        $weeklyDistanceCharts = [];
+        $weeklyDistanceTimeCharts = [];
         $distanceBreakdowns = [];
         $yearlyDistanceCharts = [];
         $yearlyStatistics = [];
@@ -97,13 +97,13 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
             }
 
             $activityType = ActivityType::from($activityType);
-            if ($activityType->supportsWeeklyDistanceStats() && $chartData = WeeklyDistanceChart::create(
+            if ($activityType->supportsWeeklyStats() && $chartData = WeeklyDistanceTimeChart::create(
                 activities: $activitiesPerActivityType[$activityType->value],
                 unitSystem: $this->unitSystem,
                 translator: $this->translator,
                 now: $now,
             )->build()) {
-                $weeklyDistanceCharts[$activityType->value] = Json::encode($chartData);
+                $weeklyDistanceTimeCharts[$activityType->value] = Json::encode($chartData);
             }
 
             if ($chartData = EFtpHistoryChart::create(
@@ -166,7 +166,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                 'timeIntervals' => ActivityPowerRepository::TIME_INTERVALS_IN_SECONDS_REDACTED,
                 'mostRecentActivities' => $allActivities->slice(0, 5),
                 'intro' => $activityTotals,
-                'weeklyDistanceCharts' => $weeklyDistanceCharts,
+                'weeklyDistanceCharts' => $weeklyDistanceTimeCharts,
                 'powerOutputs' => $bestAllTimePowerOutputs,
                 'activityHeatmapChart' => Json::encode(
                     ActivityHeatmapChart::create(

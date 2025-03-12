@@ -114,7 +114,7 @@ final readonly class WeightHistoryChart
                     'axisLabel' => [
                         'formatter' => '{value} kg',
                     ],
-                    'min' => min(array_column($weights, 1)) - 10,
+                    'min' => round(min(array_column($weights, 1)), 0) - 10,
                 ],
             ],
             'series' => [
