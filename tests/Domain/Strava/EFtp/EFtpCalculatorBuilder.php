@@ -20,7 +20,7 @@ final class EFtpCalculatorBuilder
     private function __construct()
     {
         $this->activities = Activities::fromArray([]);
-        $this->numberOfMonths = EFtpNumberOfMonths::from(0);
+        $this->numberOfMonths = EFtpNumberOfMonths::from(null);
     }
 
     public static function fromDefaults(): self
