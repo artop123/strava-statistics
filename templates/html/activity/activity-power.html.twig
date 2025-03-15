@@ -7,6 +7,7 @@
                     {% set timeIntervals =  [5, 60, 300, 600, 1200] %}
                     {% set timeIntervalLabels = ['5s', '1m', '5m', '10m', '20m'] %}
                     {% set eftp = activity.getEFtp() %}
+                    {% set weightedPower = activity.getAverageWeightedPower() %}
 
                     <tr>
                         {% for timeInterval in timeIntervals %}
@@ -17,6 +18,11 @@
                                 </th>
                             {% endif %}
                         {% endfor %}
+                        {% if weightedPower %}
+                            <th scope="col" class="px-2 py-2">
+                                {{ "Weighted Power"|trans }} <a target="_blank" href="https://support.strava.com/hc/en-us/articles/216917147-Strava-Training-Glossary-for-Cycling">ⓘ</a></i>
+                            </th>
+                        {% endif %}
                         {% if eftp %}
                             <th scope="col" colspan="2" class="px-2 py-2">
                                 <span class="cursor-help" data-popover-target="eftp-description" data-popover-placement="left">
@@ -47,6 +53,11 @@
                                 </td>
                             {% endif %}
                         {% endfor %}
+                        {% if weightedPower %}
+                            <td class="px-2 py-2 first:border-l-0 border-l">
+                                {{ weightedPower }}<span class="text-xs">w</span>
+                            </td>
+                        {% endif %}
                         {% if eftp %}
                             <td class="px-2 py-2 first:border-l-0 border-l" title="{{ eftp.getTime() }}">
                                 {{ eftp.getPower() }}<span class="text-xs">w</span>

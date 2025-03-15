@@ -118,6 +118,7 @@
             "elevation": 278,
             "moving-time": 3786,
             "power": 192,
+            "weighted-power": 202,
             "speed": 31.9,
             "heart-rate": 154,
             "calories": 695,
@@ -152,6 +153,7 @@
             "elevation": 278,
             "moving-time": 3786,
             "power": 192,
+            "weighted-power": 202,
             "speed": 31.9,
             "heart-rate": 154,
             "calories": 695
@@ -176,6 +178,7 @@
             "elevation": 278,
             "moving-time": 3786,
             "power": 192,
+            "weighted-power": 202,
             "speed": 31.9,
             "heart-rate": 154,
             "calories": 695
@@ -276,6 +279,7 @@
             "elevation": 278,
             "moving-time": 3786,
             "power": 192,
+            "weighted-power": 202,
             "speed": 31.9,
             "heart-rate": 154,
             "calories": 695
@@ -300,6 +304,7 @@
             "elevation": 278,
             "moving-time": 3786,
             "power": 192,
+            "weighted-power": 202,
             "speed": 31.9,
             "heart-rate": 154,
             "calories": 695

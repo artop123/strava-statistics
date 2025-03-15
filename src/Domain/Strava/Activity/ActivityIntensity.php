@@ -30,7 +30,11 @@ final readonly class ActivityIntensity
     {
         try {
             $ftp = $this->ftpRepository->find($activity->getStartDate())->getFtp();
-            if ($averagePower = $activity->getAveragePower()) {
+
+            $averagePower = $activity->getAverageWeightedPower()
+                ?? $activity->getAveragePower();
+
+            if ($averagePower) {
                 return $this->calculateWithPower(
                     $activity->getMovingTimeInSeconds(),
                     $averagePower,
@@ -51,7 +55,10 @@ final readonly class ActivityIntensity
                 $activity->getStartDate()
             );
 
-            if ($eftp && $averagePower = $activity->getAveragePower()) {
+            $averagePower = $activity->getAverageWeightedPower()
+                ?? $activity->getAveragePower();
+
+            if ($eftp && $averagePower) {
                 return $this->calculateWithPower(
                     $activity->getMovingTimeInSeconds(),
                     $averagePower,
