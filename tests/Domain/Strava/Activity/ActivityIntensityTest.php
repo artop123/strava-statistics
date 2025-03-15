@@ -48,6 +48,30 @@ class ActivityIntensityTest extends ContainerTestCase
         );
     }
 
+    public function testCalculateWithFtpAndWeightedAverage(): void
+    {
+        $ftp = FtpBuilder::fromDefaults()
+            ->withSetOn(SerializableDateTime::fromString('2023-04-01'))
+            ->withFtp(FtpValue::fromInt(300))
+            ->build();
+        $this->ftpRepository->save($ftp);
+
+        $this->athleteRepository->save(Athlete::create([
+            'birthDate' => '1989-08-14',
+        ]));
+
+        $activity = ActivityBuilder::fromDefaults()
+            ->withAveragePower(250)
+            ->withWeightedAveragePower(300)
+            ->withMovingTimeInSeconds(3600)
+            ->build();
+
+        $this->assertEquals(
+            100,
+            $this->activityIntensity->calculate($activity),
+        );
+    }
+
     public function testCalculateWithHeartRate(): void
     {
         $activity = ActivityBuilder::fromDefaults()
@@ -158,6 +182,39 @@ class ActivityIntensityTest extends ContainerTestCase
         $activity = ActivityBuilder::fromDefaults()
             ->withStartDateTime(SerializableDateTime::fromString('2023-03-31'))
             ->withAveragePower(200)
+            ->withMovingTimeInSeconds(3600)
+            ->withSportType(SportType::RIDE)
+            ->build();
+
+        $eftpIntensity = new ActivityIntensity(
+            $this->athleteRepository,
+            $this->ftpRepository,
+            $eftpCalculator
+        );
+
+        $this->assertEquals(
+            100,
+            $eftpIntensity->calculate($activity),
+        );
+    }
+
+    public function testCalculateWithEFtpAndWeightedAverage(): void
+    {
+        $eftpCalculator = EFtpCalculatorBuilder::fromDefaults()
+            ->withWeightRepository(EFtpAthleteWeightRepository::fromWeightInKg(80))
+            ->withActivityAndPower(
+                ActivityBuilder::fromDefaults()
+                    ->withStartDateTime(SerializableDateTime::fromString('2023-01-01'))
+                    ->withSportType(SportType::RIDE)
+                    ->build(), 250
+            )
+            ->withNumberOfMonths(3)
+            ->build();
+
+        $activity = ActivityBuilder::fromDefaults()
+            ->withStartDateTime(SerializableDateTime::fromString('2023-03-31'))
+            ->withAveragePower(200)
+            ->withWeightedAveragePower(250)
             ->withMovingTimeInSeconds(3600)
             ->withSportType(SportType::RIDE)
             ->build();
