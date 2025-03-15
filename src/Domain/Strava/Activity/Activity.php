@@ -72,6 +72,8 @@ final class Activity
         #[ORM\Column(type: 'integer', nullable: true)]
         private readonly ?int $averagePower,
         #[ORM\Column(type: 'integer', nullable: true)]
+        private readonly ?int $weightedAveragePower,
+        #[ORM\Column(type: 'integer', nullable: true)]
         private readonly ?int $maxPower,
         #[ORM\Column(type: 'float')]
         private KmPerHour $averageSpeed,
@@ -136,6 +138,7 @@ final class Activity
             ),
             calories: (int) ($rawData['calories'] ?? 0),
             averagePower: isset($rawData['average_watts']) ? (int) $rawData['average_watts'] : null,
+            weightedAveragePower: isset($rawData['weighted_average_watts']) ? (int) $rawData['weighted_average_watts'] : null,
             maxPower: isset($rawData['max_watts']) ? (int) $rawData['max_watts'] : null,
             averageSpeed: MetersPerSecond::from($rawData['average_speed'])->toKmPerHour(),
             maxSpeed: MetersPerSecond::from($rawData['max_speed'])->toKmPerHour(),
@@ -170,6 +173,7 @@ final class Activity
         ?Coordinate $startingCoordinate,
         ?int $calories,
         ?int $averagePower,
+        ?int $weightedAveragePower,
         ?int $maxPower,
         KmPerHour $averageSpeed,
         KmPerHour $maxSpeed,
@@ -199,6 +203,7 @@ final class Activity
             startingCoordinate: $startingCoordinate,
             calories: $calories,
             averagePower: $averagePower,
+            weightedAveragePower: $weightedAveragePower,
             maxPower: $maxPower,
             averageSpeed: $averageSpeed,
             maxSpeed: $maxSpeed,
@@ -401,6 +406,11 @@ final class Activity
         return $this->averagePower;
     }
 
+    public function getAverageWeightedPower(): ?int
+    {
+        return $this->weightedAveragePower;
+    }
+
     public function getMaxPower(): ?int
     {
         return $this->maxPower;
@@ -580,6 +590,7 @@ final class Activity
             'elevation' => $this->getElevation()->toFloat(),
             'moving-time' => $this->getMovingTimeInSeconds(),
             'power' => $this->getAveragePower(),
+            'weighted-power' => $this->getAverageWeightedPower(),
             'speed' => round($this->getAverageSpeed()->toFloat(), 1),
             'heart-rate' => $this->getAverageHeartRate(),
             'calories' => $this->getCalories(),

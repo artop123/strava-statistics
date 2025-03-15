@@ -15,7 +15,7 @@
 <h4 align="center">Strava Statistics is a self-hosted web app designed to provide you with better stats.</h4>
 
 <p align="center">
-  <a href="https://github.com/robiningelbrecht/strava-statistics">View the original project for installation instructions and more details</a>
+  <a target="_blank" href="https://github.com/robiningelbrecht/strava-statistics">View the original project for installation instructions and more details</a>
 </p>
 
 ## What is different
@@ -23,9 +23,9 @@
 * FTP is now calculated automatically from your activities. Each activity now displays its calculated eFTP
 * FTP chart has been replaced with estimated FTP, showing different FTP values for running and cycling
 * Activity intensity is determined based on estimated FTP
+* Activities include [Weighted Average Power](https://support.strava.com/hc/en-us/articles/216917147-Strava-Training-Glossary-for-Cycling) and the intensity is calculated using this value instead of average power
 * Activities are sortable by FTP and best power outputs
-* Weight can be imported [from a json file](#weightjson)
-* Weight history chart is displayed if there is atleast five measurements
+* Weight can be imported [from a json file](#weightjson) and weight history chart is displayed if there is atleast five measurements
 * And some other minor fixes 👀
 
 ### docker-compose.yml

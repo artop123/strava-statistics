@@ -134,6 +134,7 @@ final class DbalActivityRepository implements ActivityRepository
             ),
             calories: (int) ($result['calories'] ?? 0),
             averagePower: ((int) $result['averagePower']) ?: null,
+            weightedAveragePower: ((int) $result['weightedAveragePower']) ?: null,
             maxPower: ((int) $result['maxPower']) ?: null,
             averageSpeed: KmPerHour::from($result['averageSpeed']),
             maxSpeed: KmPerHour::from($result['maxSpeed']),

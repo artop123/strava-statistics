@@ -27,6 +27,7 @@ final class ActivityBuilder
     private ?Coordinate $startingCoordinate;
     private readonly int $calories;
     private ?int $averagePower;
+    private ?int $weightedAveragePower;
     private readonly ?int $maxPower;
     private readonly KmPerHour $averageSpeed;
     private readonly KmPerHour $maxSpeed;
@@ -59,6 +60,7 @@ final class ActivityBuilder
         $this->startingCoordinate = null;
         $this->calories = 0;
         $this->averagePower = null;
+        $this->weightedAveragePower = null;
         $this->maxPower = null;
         $this->averageSpeed = KmPerHour::from(0);
         $this->maxSpeed = KmPerHour::from(0);
@@ -95,6 +97,7 @@ final class ActivityBuilder
             startingCoordinate: $this->startingCoordinate,
             calories: $this->calories,
             averagePower: $this->averagePower,
+            weightedAveragePower: $this->weightedAveragePower,
             maxPower: $this->maxPower,
             averageSpeed: $this->averageSpeed,
             maxSpeed: $this->maxSpeed,
@@ -146,6 +149,13 @@ final class ActivityBuilder
     public function withAveragePower(int $averagePower): self
     {
         $this->averagePower = $averagePower;
+
+        return $this;
+    }
+
+    public function withWeightedAveragePower(int $weightedAveragePower): self
+    {
+        $this->weightedAveragePower = $weightedAveragePower;
 
         return $this;
     }

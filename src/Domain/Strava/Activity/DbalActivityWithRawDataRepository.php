@@ -36,13 +36,13 @@ final readonly class DbalActivityWithRawDataRepository extends DbalRepository im
         $sql = 'INSERT INTO Activity (
             activityId, startDateTime, sportType, name, description, distance,
             elevation, startingCoordinateLatitude, startingCoordinateLongitude, calories,
-            averagePower, maxPower, averageSpeed, maxSpeed, averageHeartRate, maxHeartRate,
+            averagePower, weightedAveragePower, maxPower, averageSpeed, maxSpeed, averageHeartRate, maxHeartRate,
             averageCadence,movingTimeInSeconds, kudoCount, deviceName, totalImageCount, localImagePaths,
             polyline, location, weather, gearId, gearName, data, isCommute, streamsAreImported
         ) VALUES(
             :activityId, :startDateTime, :sportType, :name, :description, :distance,
             :elevation, :startingCoordinateLatitude, :startingCoordinateLongitude, :calories,
-            :averagePower, :maxPower, :averageSpeed, :maxSpeed, :averageHeartRate, :maxHeartRate,
+            :averagePower, :weightedAveragePower, :maxPower, :averageSpeed, :maxSpeed, :averageHeartRate, :maxHeartRate,
             :averageCadence, :movingTimeInSeconds, :kudoCount, :deviceName, :totalImageCount, :localImagePaths,
             :polyline, :location, :weather, :gearId, :gearName, :data, :isCommute, :streamsAreImported
         )';
@@ -60,6 +60,7 @@ final readonly class DbalActivityWithRawDataRepository extends DbalRepository im
             'startingCoordinateLongitude' => $activity->getStartingCoordinate()?->getLongitude()->toFloat(),
             'calories' => $activity->getCalories(),
             'averagePower' => $activity->getAveragePower(),
+            'weightedAveragePower' => $activity->getAverageWeightedPower(),
             'maxPower' => $activity->getMaxPower(),
             'averageSpeed' => $activity->getAverageSpeed()->toFloat(),
             'maxSpeed' => $activity->getMaxSpeed()->toFloat(),
