@@ -99,6 +99,8 @@ final readonly class DbalActivityWithRawDataRepository extends DbalRepository im
                     location = :location,
                     gearId = :gearId, 
                     gearName = :gearName,
+                    totalImageCount = :totalImageCount,
+                    localImagePaths = :localImagePaths,
                     data = :data
                     WHERE activityId = :activityId';
 
@@ -118,6 +120,8 @@ final readonly class DbalActivityWithRawDataRepository extends DbalRepository im
             'location' => $activity->getLocation() ? Json::encode($activity->getLocation()) : null,
             'gearId' => $activity->getGearId(),
             'gearName' => $activity->getGearName(),
+            'totalImageCount' => $activity->getTotalImageCount(),
+            'localImagePaths' => implode(',', $activity->getLocalImagePaths()),
             'data' => Json::encode($this->cleanData($activityWithRawData->getRawData())),
         ]);
     }

@@ -36,7 +36,7 @@ final class ActivityBuilder
     private readonly ?int $averageCadence;
     private int $movingTimeInSeconds;
     private int $kudoCount;
-    private readonly int $totalImageCount;
+    private int $totalImageCount;
     private ?string $deviceName;
     /** @var array<string> */
     private readonly array $localImagePaths;
@@ -212,6 +212,13 @@ final class ActivityBuilder
     public function withPolyline(?string $polyline): self
     {
         $this->polyline = $polyline;
+
+        return $this;
+    }
+
+    public function withTotalImageCount(int $totalImageCount): self
+    {
+        $this->totalImageCount = $totalImageCount;
 
         return $this;
     }
