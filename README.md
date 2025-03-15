@@ -95,8 +95,8 @@ ATHLETE_BIRTHDAY=YYYY-MM-DD
 # History of weight (in kg or pounds, depending on UNIT_SYSTEM). Needed to calculate relative w/kg.
 # Can also be filepath to .json file. Remember to add that file to docker compose
 # Check https://github.com/robiningelbrecht/strava-statistics/wiki for more info.
-#ATHLETE_WEIGHTS='/data/weight.json'
-ATHLETE_WEIGHTS='{
+#ATHLETE_WEIGHT_HISTORY='/data/weight.json'
+ATHLETE_WEIGHT_HISTORY='{
     "YYYY-MM-DD": 74.6,
     "YYYY-MM-DD": 70.3
 }'

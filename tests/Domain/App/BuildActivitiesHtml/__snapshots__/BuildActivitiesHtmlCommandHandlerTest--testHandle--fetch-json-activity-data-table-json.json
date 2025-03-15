@@ -259,7 +259,7 @@
     },
     {
         "active": true,
-        "searchables": "virtual ride non zwift",
+        "searchables": "running activity",
         "filterables": {
             "sportType": "Run",
             "start-date": 1659198935000
