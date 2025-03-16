@@ -71,9 +71,9 @@ app-build-flowbite:
 # Add upstream before running this:
 # git remote add upstream https://github.com/robiningelbrecht/strava-statistics
 app-bump:
-	git checkout master
-	git pull origin master
+	git fetch origin
 	git branch | grep -q "issue-bump" && git checkout issue-bump || git checkout -b issue-bump
+	git rebase origin/master
 	git fetch upstream
 	git merge upstream/master
 

@@ -303,6 +303,7 @@
         initDropdowns();
         initAccordions();
         initModals(rootNode);
+        initFilters();
 
         // Render charts.
         rootNode.querySelectorAll('[data-echarts-options]').forEach(function (chartNode) {
@@ -310,6 +311,15 @@
             window.addEventListener('resize', function () {
                 chart.resize();
             });
+
+            if (chartNode.dataset.echartClick) {
+                chart.on('click', function (params) {
+                    if (params.componentType === 'series' && params.value) {
+                        window.open(chartNode.dataset.echartClick.replaceAll("[value]", params.value[0]), '_blank');
+                    }
+                });
+            }
+
             const chartOptions = JSON.parse(chartNode.getAttribute('data-echarts-options'));
             chart.setOption(chartOptions);
             renderedCharts.push(chart);
@@ -321,6 +331,20 @@
             LeafletMap(mapNode, data).render();
         });
     };
+
+    const initFilters = () => {
+        const params = new URLSearchParams(window.location.search);
+
+        const from = document.querySelector('input[name="start-date[from]"]');
+        const to = document.querySelector('input[name="start-date[to]"]');
+        const fromValue = params.get("from");
+        const toValue = params.get("to");
+        
+        if (from && to && fromValue && toValue) {
+            from.value = fromValue;
+            to.value = toValue;
+        }
+    }
 
     const initModals = (rootNode) => {
         const modalLinks = rootNode.querySelectorAll('a[data-model-content-url]');

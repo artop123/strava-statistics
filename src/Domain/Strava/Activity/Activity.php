@@ -573,9 +573,11 @@ final class Activity
      */
     public function getFilterables(): array
     {
+        $startDate = (clone $this->getStartDate())->setTime(0, 0, 0);
+
         return [
             'sportType' => $this->getSportType()->value,
-            'start-date' => $this->getStartDate()->getTimestamp() * 1000, // JS timestamp is in milliseconds,
+            'start-date' => $startDate->getTimestamp() * 1000, // JS timestamp is in milliseconds,
         ];
     }
 

@@ -110,14 +110,14 @@ export default function Router(app) {
     const boot = ()=> {
         const route = currentRoute();
         const modal = location.hash.replace('#', '');
-
+        
         registerNavItems(menuItems);
         registerBrowserBackAndForth();
         renderContent(route, modal);
         window.history.replaceState({
             route: route,
             modal: modal
-        }, "", route + location.hash);
+        }, "", route + location.search + location.hash);
     }
 
     return {

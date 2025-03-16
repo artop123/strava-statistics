@@ -195,6 +195,8 @@ export default function DataTable($dataTableWrapperNode) {
                     $scrollElement.scrollTop = 0;
                 });
             });
+
+            clusterize.update(filterOnActiveRows(applySearchAndFiltersToDataRows(dataRows, $dataTableWrapperNode)))
         });
     }
 

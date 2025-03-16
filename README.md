@@ -23,8 +23,9 @@
 * FTP is now calculated automatically from your activities. Each activity now displays its calculated eFTP
 * FTP chart has been replaced with estimated FTP, showing different FTP values for running and cycling
 * Activity intensity is determined based on estimated FTP
+* Activity intensity chart can be clicked to view the activities on that date
 * Activities include [Weighted Average Power](https://support.strava.com/hc/en-us/articles/216917147-Strava-Training-Glossary-for-Cycling) and the intensity is calculated using this value instead of average power
-* Activities are sortable by FTP and best power outputs
+* Activities are sortable by FTP and best power outputs. Also the date filter is fixed
 * Weight can be imported [from a json file](#weightjson) and weight history chart is displayed if there is atleast five measurements
 * And some other minor fixes 👀
 
