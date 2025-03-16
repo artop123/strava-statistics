@@ -4,7 +4,7 @@
         "searchables": "night ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1694552738000
+            "start-date": 1694476800000
         },
         "summables": {
             "distance": 6.11,
@@ -29,7 +29,7 @@
         "searchables": "night ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1694466338000
+            "start-date": 1694390400000
         },
         "summables": {
             "distance": 6.11,
@@ -54,7 +54,7 @@
         "searchables": "night ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1693947938000
+            "start-date": 1693872000000
         },
         "summables": {
             "distance": 6.11,
@@ -79,7 +79,7 @@
         "searchables": "night ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1693861538000
+            "start-date": 1693785600000
         },
         "summables": {
             "distance": 6.11,
@@ -104,7 +104,7 @@
         "searchables": "watopia flat forward in london",
         "filterables": {
             "sportType": "VirtualRide",
-            "start-date": 1693499735000
+            "start-date": 1693440000000
         },
         "summables": {
             "distance": 33.55,
@@ -139,7 +139,7 @@
         "searchables": "virtual ride non zwift",
         "filterables": {
             "sportType": "VirtualRide",
-            "start-date": 1690821335000
+            "start-date": 1690761600000
         },
         "summables": {
             "distance": 33.55,
@@ -165,7 +165,7 @@
         "searchables": "virtual ride non zwift",
         "filterables": {
             "sportType": "VirtualRide",
-            "start-date": 1690734935000
+            "start-date": 1690675200000
         },
         "summables": {
             "distance": 0,
@@ -190,7 +190,7 @@
         "searchables": "morning ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1690623243000
+            "start-date": 1690588800000
         },
         "summables": {
             "distance": 12.42,
@@ -215,7 +215,7 @@
         "searchables": "morning ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1690616043000
+            "start-date": 1690588800000
         },
         "summables": {
             "distance": 112.42,
@@ -240,7 +240,7 @@
         "searchables": "morning ride",
         "filterables": {
             "sportType": "Ride",
-            "start-date": 1690536843000
+            "start-date": 1690502400000
         },
         "summables": {
             "distance": 12.42,
@@ -265,7 +265,7 @@
         "searchables": "running activity",
         "filterables": {
             "sportType": "Run",
-            "start-date": 1659198935000
+            "start-date": 1659139200000
         },
         "summables": {
             "distance": 50,
@@ -291,7 +291,7 @@
         "searchables": "virtual ride non zwift",
         "filterables": {
             "sportType": "VirtualRide",
-            "start-date": 1659198935000
+            "start-date": 1659139200000
         },
         "summables": {
             "distance": 0,
