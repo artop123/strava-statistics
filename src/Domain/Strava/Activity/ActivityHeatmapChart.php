@@ -53,6 +53,7 @@ final readonly class ActivityHeatmapChart
             ],
             'tooltip' => [
                 'trigger' => 'item',
+                'formatter' => 'function (params) { return "<b>" + params.value[0] + "</b>: " + params.value[1]; }',
             ],
             'visualMap' => [
                 'type' => 'piecewise',
