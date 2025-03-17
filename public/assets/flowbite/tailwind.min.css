@@ -870,6 +870,9 @@
   .start-0 {
     inset-inline-start: calc(var(--spacing) * 0);
   }
+  .-top-\[48px\] {
+    top: calc(48px * -1);
+  }
   .top-0 {
     top: calc(var(--spacing) * 0);
   }
@@ -2953,6 +2956,13 @@
       }
     }
   }
+  .hover\:text-strava-orange {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-strava-orange);
+      }
+    }
+  }
   .hover\:underline {
     &:hover {
       @media (hover: hover) {
@@ -3374,6 +3384,13 @@
   }
 }
 @layer utilities {
+  body .lg-outer {
+    z-index: 1500 !important;
+  }
+  body .lg-backdrop {
+    z-index: 1490 !important;
+    opacity: 0.9 !important;
+  }
   .leaflet-tile-pane {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);

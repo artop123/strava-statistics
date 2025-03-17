@@ -12,6 +12,7 @@
     <link href="/assets/flowbite/tailwind.min.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
     <link href="/assets/leaflet/leaflet.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
     <link href="/assets/data-table/clusterize.min.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
+    <link href="/assets/lightgallery/lightgallery-bundle.min.css?0025176c-5652-11ee-923d-02424dd627d5" rel="stylesheet">
 </head>
 <body>
 <div class="antialiased bg-gray-50">
@@ -247,6 +248,8 @@
 <script src="/assets/leaflet/heatmap.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
 <script src="/assets/data-table/clusterize.min.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
 <script src="/assets/data-table/data-table.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+<script src="/assets/lightgallery/lightgallery.umd.min.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
+<script src="/assets/lightgallery/lightgallery.lg-zoom.min.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
 
 <script type="module">
     import LeafletMap from "./assets/leaflet/leaflet-map.js";
@@ -320,6 +323,23 @@
             const data = JSON.parse(mapNode.getAttribute('data-leaflet'));
             LeafletMap(mapNode, data).render();
         });
+
+        // Init Lightgallery.
+        rootNode.querySelectorAll('[data-light-gallery-elements]').forEach(function (node) {
+            const elements = JSON.parse(node.getAttribute('data-light-gallery-elements'));
+
+            const dynamicGallery = lightGallery(node, {
+                dynamic: true,
+                plugins: [lgZoom],
+                backdropDuration: 200,
+                dynamicEl: elements,
+            });
+
+            node.addEventListener('click', () => {
+                dynamicGallery.openGallery();
+            });
+        });
+
     };
 
     const initModals = (rootNode) => {
