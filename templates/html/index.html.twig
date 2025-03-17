@@ -12,6 +12,7 @@
     <link href="{{ asset('assets/flowbite/tailwind.min.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/leaflet/leaflet.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/data-table/clusterize.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lightgallery/lightgallery-bundle.min.css') }}" rel="stylesheet">
 </head>
 <body>
 <div class="antialiased bg-gray-50">
@@ -308,6 +309,8 @@
 <script src="{{ asset('assets/leaflet/heatmap.js') }}" type="module"></script>
 <script src="{{ asset('assets/data-table/clusterize.min.js') }}"></script>
 <script src="{{ asset('assets/data-table/data-table.js') }}" type="module"></script>
+<script src="{{ asset('assets/lightgallery/lightgallery.umd.min.js') }}" type="module"></script>
+<script src="{{ asset('assets/lightgallery/lightgallery.lg-zoom.min.js') }}"></script>
 
 <script type="module">
     import LeafletMap from "./assets/leaflet/leaflet-map.js";
@@ -400,6 +403,23 @@
             const data = JSON.parse(mapNode.getAttribute('data-leaflet'));
             LeafletMap(mapNode, data).render();
         });
+
+        // Init Lightgallery.
+        rootNode.querySelectorAll('[data-light-gallery-elements]').forEach(function (node) {
+            const elements = JSON.parse(node.getAttribute('data-light-gallery-elements'));
+
+            const dynamicGallery = lightGallery(node, {
+                dynamic: true,
+                plugins: [lgZoom],
+                backdropDuration: 200,
+                dynamicEl: elements,
+            });
+
+            node.addEventListener('click', () => {
+                dynamicGallery.openGallery();
+            });
+        });
+
     };
 
     const initFilters = () => {
