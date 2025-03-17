@@ -373,15 +373,24 @@
                 chart.resize();
             });
 
-            if (chartNode.dataset.echartClick) {
+            if (chartNode.dataset.echartsClick) {
                 chart.on('click', function (params) {
                     if (params.componentType === 'series' && params.value) {
-                        window.open(chartNode.dataset.echartClick.replaceAll("[value]", params.value[0]), '_blank');
+                        window.open(chartNode.dataset.echartsClick.replaceAll("[value]", params.value[0]), '_blank');
                     }
                 });
             }
 
             const chartOptions = JSON.parse(chartNode.getAttribute('data-echarts-options'));
+
+            if (chartOptions.tooltip && chartOptions.tooltip.formatter) {
+                const formatterString = chartOptions.tooltip.formatter.trim();
+
+                if (formatterString.startsWith('function')) {
+                    chartOptions.tooltip.formatter = eval('(' + formatterString + ')');
+                }
+            }
+
             chart.setOption(chartOptions);
             renderedCharts.push(chart);
         });
