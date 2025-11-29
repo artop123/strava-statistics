@@ -6,7 +6,6 @@ namespace App\Domain\Strava\Activity\YearlyDistance;
 
 use App\Domain\Strava\Activity\Activities;
 use App\Domain\Strava\Activity\Activity;
-use App\Infrastructure\ValueObject\Measurement\UnitSystem;
 use App\Infrastructure\ValueObject\Time\SerializableDateTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -14,7 +13,6 @@ final readonly class YearlyDistanceChart
 {
     private function __construct(
         private Activities $activities,
-        private UnitSystem $unitSystem,
         private TranslatorInterface $translator,
         private SerializableDateTime $now,
     ) {
@@ -22,13 +20,11 @@ final readonly class YearlyDistanceChart
 
     public static function create(
         Activities $activities,
-        UnitSystem $unitSystem,
         TranslatorInterface $translator,
         SerializableDateTime $now,
     ): self {
         return new self(
             activities: $activities,
-            unitSystem: $unitSystem,
             translator: $translator,
             now: $now
         );
@@ -71,29 +67,25 @@ final readonly class YearlyDistanceChart
             ];
 
             $runningSum = 0;
-            foreach ($months as $monthNumber => $label) {
-                for ($i = 0; $i < 31; ++$i) {
-                    $date = SerializableDateTime::fromString(sprintf(
-                        '%s-%s-%s',
-                        $year,
-                        $monthNumber,
-                        str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT))
-                    );
-                    $activitiesOnThisDay = $this->activities->filterOnDate($date);
 
-                    if ($date->isAfter($this->now)) {
-                        break 2;
-                    }
+            $startDate = SerializableDateTime::fromString(sprintf('%s-01-01', $year));
+            $endDate = SerializableDateTime::fromString(sprintf('%s-12-31', $year));
 
-                    $runningSum += $activitiesOnThisDay->sum(
-                        fn (Activity $activity) => $activity->getDistance()->toUnitSystem($this->unitSystem)->toFloat()
-                    );
-                    $series[(string) $year]['data'][] = round($runningSum);
+            while ($startDate->isBeforeOrOn($endDate)) {
+                $activitiesOnThisDay = $this->activities->filterOnDate($startDate);
+
+                if ($startDate->isAfter($this->now)) {
+                    break;
                 }
+
+                $runningSum += $activitiesOnThisDay->sum(
+                    fn (Activity $activity) => $activity->getMovingTimeInSeconds()
+                );
+
+                $series[(string) $year]['data'][] = floor($runningSum / 3600);
+                $startDate = $startDate->addDays(1);
             }
         }
-
-        $unitSymbol = $this->unitSystem->distanceSymbol();
 
         return [
             'animation' => true,
@@ -126,7 +118,7 @@ final readonly class YearlyDistanceChart
             'yAxis' => [
                 [
                     'type' => 'value',
-                    'name' => $this->translator->trans('Distance in {unit}', ['{unit}' => $unitSymbol]),
+                    'name' => 'Duration (hours)',
                     'nameRotate' => 90,
                     'nameLocation' => 'middle',
                     'nameGap' => 50,

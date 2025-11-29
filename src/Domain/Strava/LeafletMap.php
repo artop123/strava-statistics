@@ -144,6 +144,6 @@ enum LeafletMap: string
             }
         }
 
-        throw new \RuntimeException('No map found for starting coordinate '.Json::encode($coordinate));
+        return LeafletMap::REAL_WORLD;
     }
 }

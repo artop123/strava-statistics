@@ -250,6 +250,8 @@
 <script src="/assets/data-table/data-table.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
 <script src="/assets/lightgallery/lightgallery.umd.min.js?0025176c-5652-11ee-923d-02424dd627d5" type="module"></script>
 <script src="/assets/lightgallery/lightgallery.lg-zoom.min.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/popper.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
+<script src="/assets/tippy.js?0025176c-5652-11ee-923d-02424dd627d5"></script>
 
 <script type="module">
     import LeafletMap from "./assets/leaflet/leaflet-map.js";
@@ -359,6 +361,13 @@
             });
         });
 
+        // Init tippy
+        tippy('[data-tippy-content]', {
+            theme: 'light',
+            animation: 'shift-away',
+            arrow: true,
+            delay: [0, 0],
+        });
     };
 
     const initFilters = () => {
@@ -465,21 +474,6 @@
 
         modal.show();
     }
-
-    const updateGithubLatestRelease = async () => {
-        const $latestVersionEl = document.querySelector('[data-latest-version]');
-        const currentVersion = $latestVersionEl.getAttribute('data-current-version')
-        const latestVersion = await (await (await fetch('https://api.github.com/repos/robiningelbrecht/strava-statistics/releases/latest')).json())['name'];
-
-        if (currentVersion !== latestVersion) {
-            const $latestVersionLink = $latestVersionEl.querySelector('a');
-            $latestVersionLink.setAttribute('href', $latestVersionLink.getAttribute('href').replace('[LATEST_VERSION]', latestVersion));
-            $latestVersionLink.innerHTML = $latestVersionLink.innerHTML.replace('[LATEST_VERSION]', latestVersion);
-            $latestVersionEl.classList.remove('hidden');
-        }
-    }
-
-    updateGithubLatestRelease();
 </script>
 </body>
 </html>
