@@ -11,7 +11,6 @@ use App\Domain\Strava\Challenge\Challenge;
 use App\Domain\Strava\Challenge\Challenges;
 use App\Infrastructure\ValueObject\Measurement\Length\Kilometer;
 use App\Infrastructure\ValueObject\Measurement\Length\Meter;
-use Carbon\CarbonInterval;
 
 final readonly class MonthlyStatistics
 {
@@ -76,7 +75,7 @@ final readonly class MonthlyStatistics
         $statistics = array_filter($statistics, fn (array $statistic) => $statistic['numberOfWorkouts'] > 0);
 
         foreach ($statistics as &$statistic) {
-            $statistic['movingTime'] = CarbonInterval::seconds($statistic['movingTimeInSeconds'])->cascade()->forHumans(['short' => true, 'minimumUnit' => 'minute']);
+            $statistic['movingTime'] = floor($statistic['movingTimeInSeconds'] / 3600);
             $statistic['totalDistance'] = Kilometer::from($statistic['totalDistance']);
             $statistic['totalElevation'] = Meter::from($statistic['totalElevation']);
         }
@@ -126,7 +125,7 @@ final readonly class MonthlyStatistics
             'totalDistance' => Kilometer::from($activities->sum(fn (Activity $activity) => $activity->getDistance()->toFloat())),
             'totalElevation' => Meter::from($activities->sum(fn (Activity $activity) => $activity->getElevation()->toFloat())),
             'totalCalories' => $activities->sum(fn (Activity $activity) => $activity->getCalories()),
-            'movingTime' => CarbonInterval::seconds($activities->sum(fn (Activity $activity) => $activity->getMovingTimeInSeconds()))->cascade()->forHumans(['short' => true, 'minimumUnit' => 'minute']),
+            'movingTime' => floor($activities->sum(fn (Activity $activity) => $activity->getMovingTimeInSeconds()) / 3600),
         ];
     }
 }

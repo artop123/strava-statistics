@@ -25,6 +25,11 @@ final readonly class Year implements \Stringable
         );
     }
 
+    public function toInt(): int
+    {
+        return $this->year;
+    }
+
     public function __toString(): string
     {
         return (string) $this->year;

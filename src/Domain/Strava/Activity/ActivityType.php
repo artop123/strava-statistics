@@ -21,6 +21,7 @@ enum ActivityType: string implements TranslatableInterface
     case OUTDOOR_SPORTS = 'OutdoorAdventureSports';
     case ADAPTIVE_INCLUSIVE_SPORTS = 'AdaptiveInclusiveSports';
     case OTHER = 'Other';
+    case ALL = 'All';
 
     public function getTemplateName(): string
     {
@@ -56,6 +57,7 @@ enum ActivityType: string implements TranslatableInterface
             self::OUTDOOR_SPORTS => $translator->trans('Outdoor Sports', locale: $locale),
             self::ADAPTIVE_INCLUSIVE_SPORTS => $translator->trans('Adaptive & Inclusive Sports', locale: $locale),
             self::OTHER => $translator->trans('Other', locale: $locale),
+            self::ALL => $translator->trans('All', locale: $locale),
         };
     }
 
@@ -91,7 +93,7 @@ enum ActivityType: string implements TranslatableInterface
     public function supportsDistanceBreakdownStats(): bool
     {
         return match ($this) {
-            self::RUN, self::RIDE, self::SKATING => true,
+            self::RUN, self::RIDE, self::SKATING, self::WINTER_SPORTS => true,
             default => false,
         };
     }
@@ -99,7 +101,7 @@ enum ActivityType: string implements TranslatableInterface
     public function supportsYearlyStats(): bool
     {
         return match ($this) {
-            self::RUN, self::RIDE, self::WALK, self::WATER_SPORTS, self::SKATING => true,
+            self::RUN, self::RIDE, self::WALK, self::WATER_SPORTS, self::SKATING, self::WINTER_SPORTS => true,
             default => false,
         };
     }

@@ -91,6 +91,19 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         $yearlyStatistics = [];
         $eftpCharts = [];
 
+        $yearlyStatistics[ActivityType::ALL->value] = YearlyStatistics::create(
+            activities: $allActivities,
+            years: $allYears
+        );
+
+        $yearlyDistanceCharts[ActivityType::ALL->value] = Json::encode(
+            YearlyDistanceChart::create(
+                activities: $allActivities,
+                translator: $this->translator,
+                now: $now
+            )->build()
+        );
+
         foreach ($activitiesPerActivityType as $activityType => $activities) {
             if ($activities->isEmpty()) {
                 continue;
@@ -126,17 +139,18 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
             }
 
             if ($activityType->supportsYearlyStats()) {
+                $activities = $activitiesPerActivityType[$activityType->value];
+
                 $yearlyDistanceCharts[$activityType->value] = Json::encode(
                     YearlyDistanceChart::create(
-                        activities: $activitiesPerActivityType[$activityType->value],
-                        unitSystem: $this->unitSystem,
+                        activities: $activities,
                         translator: $this->translator,
                         now: $now
                     )->build()
                 );
 
                 $yearlyStatistics[$activityType->value] = YearlyStatistics::create(
-                    activities: $activitiesPerActivityType[$activityType->value],
+                    activities: $activities,
                     years: $allYears
                 );
             }

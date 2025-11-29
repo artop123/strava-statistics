@@ -68,15 +68,6 @@ app-build-files:
 app-build-flowbite:
 	npx @tailwindcss/cli -i public/assets/flowbite/tailwind.css -o public/assets/flowbite/tailwind.min.css
 
-# Add upstream before running this:
-# git remote add upstream https://github.com/robiningelbrecht/strava-statistics
-app-bump:
-	git fetch origin
-	git branch | grep -q "issue-bump" && git checkout issue-bump || git checkout -b issue-bump
-	git rebase origin/master
-	git fetch upstream
-	git merge upstream/master
-
 app-build-all:
 	@make build-containers
 	@make app-build-files

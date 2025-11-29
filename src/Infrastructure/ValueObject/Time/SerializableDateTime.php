@@ -8,6 +8,11 @@ use Carbon\Carbon;
 
 class SerializableDateTime extends \DateTimeImmutable implements \JsonSerializable, \Stringable
 {
+    public function addDays(int $days): self
+    {
+        return $this->modify(sprintf('+%d days', $days));
+    }
+
     public static function fromDateTimeImmutable(\DateTimeImmutable $date): self
     {
         return self::fromString($date->format('Y-m-d H:i:s'));

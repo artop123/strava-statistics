@@ -33,13 +33,14 @@ class LeafletMapTest extends TestCase
         );
     }
 
-    public function testFromStartingCoordinateItShouldThrow(): void
+    public function testFromStartingCoordinateItShouldReturnWorld(): void
     {
-        $this->expectExceptionObject(new \RuntimeException('No map found for starting coordinate [1,1]'));
-
-        LeafletMap::forZwiftStartingCoordinate(Coordinate::createFromLatAndLng(
-            Latitude::fromString('1'), Longitude::fromString('1')
-        ));
+        $this->assertEquals(
+            LeafletMap::REAL_WORLD,
+            LeafletMap::forZwiftStartingCoordinate(Coordinate::createFromLatAndLng(
+                Latitude::fromString('1'), Longitude::fromString('1')
+            ))
+        );
     }
 
     public function testGetTileLayer(): void
