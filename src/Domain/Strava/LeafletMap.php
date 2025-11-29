@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Strava;
 
-use App\Infrastructure\Serialization\Json;
 use App\Infrastructure\ValueObject\Geography\Coordinate;
 use App\Infrastructure\ValueObject\Geography\Latitude;
 use App\Infrastructure\ValueObject\Geography\Longitude;
