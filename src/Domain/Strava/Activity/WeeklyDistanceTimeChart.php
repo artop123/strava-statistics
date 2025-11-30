@@ -81,20 +81,6 @@ final readonly class WeeklyDistanceTimeChart
 
         $unitSymbol = $this->unitSystem->distanceSymbol();
 
-        if (!empty(array_filter($data[0]))) {
-            $series[] = array_merge_recursive(
-                $serie,
-                [
-                    'name' => $this->translator->trans('Distance / week'),
-                    'data' => $data[0],
-                    'yAxisIndex' => 0,
-                    'label' => [
-                        'formatter' => '{@[1]} '.$unitSymbol,
-                    ],
-                ],
-            );
-        }
-
         if (!empty(array_filter($data[1]))) {
             $series[] = array_merge_recursive(
                 $serie,
@@ -104,6 +90,20 @@ final readonly class WeeklyDistanceTimeChart
                     'yAxisIndex' => 1,
                     'label' => [
                         'formatter' => '{@[1]} h',
+                    ],
+                ],
+            );
+        }
+
+        if (!empty(array_filter($data[0]))) {
+            $series[] = array_merge_recursive(
+                $serie,
+                [
+                    'name' => $this->translator->trans('Distance / week'),
+                    'data' => $data[0],
+                    'yAxisIndex' => 0,
+                    'label' => [
+                        'formatter' => '{@[1]} '.$unitSymbol,
                     ],
                 ],
             );

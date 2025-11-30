@@ -42,8 +42,11 @@ export default function DataTable($dataTableWrapperNode) {
                 throw new Error('input[name="' + filterName + '[to]"] element not found');
             }
 
-            if (!isNaN($rangeInputFrom.valueAsNumber) && !isNaN($rangeInputTo.valueAsNumber)) {
-                filters[filterName] = [$rangeInputFrom.valueAsNumber, $rangeInputTo.valueAsNumber];
+            var from = $rangeInputFrom.valueAsNumber || parseInt($rangeInputFrom.value);
+            var to = $rangeInputTo.valueAsNumber || parseInt($rangeInputTo.value);
+
+            if (!isNaN(from) || !isNaN(to)) {
+                filters[filterName] = [from, to];
             }
         });
 
@@ -60,9 +63,12 @@ export default function DataTable($dataTableWrapperNode) {
 
             for (const filter in filters) {
                 const filterValue = filters[filter];
+
                 if (Array.isArray(filterValue)) {
-                    // This is range filter.
-                    dataRows[i].active = dataRows[i].active && filter in rowFilterables && filterValue[0] <= rowFilterables[filter] && rowFilterables[filter] <= filterValue[1]
+                    let from = filterValue[0] || Number.NEGATIVE_INFINITY;
+                    let to = filterValue[1] || Number.POSITIVE_INFINITY;
+
+                    dataRows[i].active = dataRows[i].active && filter in rowFilterables && from <= rowFilterables[filter] && rowFilterables[filter] <= to
                 } else {
                     dataRows[i].active = dataRows[i].active && filter in rowFilterables && rowFilterables[filter].toLowerCase() === filterValue
                 }
@@ -186,7 +192,7 @@ export default function DataTable($dataTableWrapperNode) {
                         $filterToClear.checked = false;
                     });
 
-                    const $valueFiltersToClear = $dataTableWrapperNode.querySelectorAll('input[type="date"][name^="' + filterNameToClear + '"]');
+                    const $valueFiltersToClear = $dataTableWrapperNode.querySelectorAll('input[name^="' + filterNameToClear + '"]');
                     $valueFiltersToClear.forEach($filterToClear => {
                         $filterToClear.value = '';
                     });

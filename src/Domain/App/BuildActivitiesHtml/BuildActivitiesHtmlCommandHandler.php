@@ -6,6 +6,7 @@ namespace App\Domain\App\BuildActivitiesHtml;
 
 use App\Domain\Strava\Activity\ActivitiesEnricher;
 use App\Domain\Strava\Activity\ActivityTotals;
+use App\Domain\Strava\Activity\ActivityTypeRepository;
 use App\Domain\Strava\Activity\HeartRateChart;
 use App\Domain\Strava\Activity\HeartRateDistributionChart;
 use App\Domain\Strava\Activity\PowerDistributionChart;
@@ -34,6 +35,7 @@ final readonly class BuildActivitiesHtmlCommandHandler implements CommandHandler
         private ActivityPowerRepository $activityPowerRepository,
         private ActivityStreamRepository $activityStreamRepository,
         private ActivitySplitRepository $activitySplitRepository,
+        private ActivityTypeRepository $activityTypeRepository,
         private ActivityHeartRateRepository $activityHeartRateRepository,
         private SportTypeRepository $sportTypeRepository,
         private SegmentEffortRepository $segmentEffortRepository,
@@ -52,6 +54,7 @@ final readonly class BuildActivitiesHtmlCommandHandler implements CommandHandler
         $now = $command->getCurrentDateTime();
         $athlete = $this->athleteRepository->find();
         $importedSportTypes = $this->sportTypeRepository->findAll();
+        $importedActivityTypes = $this->activityTypeRepository->findAll();
         $activities = $this->activitiesEnricher->getEnrichedActivities();
 
         $activityTotals = ActivityTotals::getInstance(
@@ -64,6 +67,7 @@ final readonly class BuildActivitiesHtmlCommandHandler implements CommandHandler
             'activities.html',
             $this->twig->load('html/activity/activities.html.twig')->render([
                 'sportTypes' => $importedSportTypes,
+                'activityTypes' => $importedActivityTypes,
                 'activityTotals' => $activityTotals,
             ]),
         );

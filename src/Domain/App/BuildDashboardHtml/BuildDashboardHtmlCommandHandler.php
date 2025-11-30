@@ -130,6 +130,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
             if ($activityType->supportsDistanceBreakdownStats()) {
                 $distanceBreakdown = DistanceBreakdown::create(
                     activities: $activitiesPerActivityType[$activityType->value],
+                    activityType: $activityType,
                     unitSystem: $this->unitSystem
                 );
 

@@ -582,6 +582,8 @@ final class Activity
 
         return [
             'sportType' => $this->getSportType()->value,
+            'activityType' => $this->getSportType()->getActivityType()->value,
+            'distance' => (int) floor($this->getDistance()->toFloat()),
             'start-date' => $startDate->getTimestamp() * 1000, // JS timestamp is in milliseconds,
         ];
     }

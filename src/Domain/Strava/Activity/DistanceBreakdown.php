@@ -12,16 +12,19 @@ final readonly class DistanceBreakdown
 {
     private function __construct(
         private Activities $activities,
+        private ActivityType $activityType,
         private UnitSystem $unitSystem,
     ) {
     }
 
     public static function create(
         Activities $activities,
+        ActivityType $activityType,
         UnitSystem $unitSystem,
     ): self {
         return new self(
             activities: $activities,
+            activityType: $activityType,
             unitSystem: $unitSystem
         );
     }
@@ -49,8 +52,13 @@ final readonly class DistanceBreakdown
 
         $range = range($breakdownOnDistance, ceil($longestDistanceForActivity->toFloat() / $breakdownOnDistance) * $breakdownOnDistance, $breakdownOnDistance);
         foreach ($range as $breakdownLimit) {
+            $from = $breakdownLimit - $breakdownOnDistance;
+
             $statistics[$breakdownLimit] = [
-                'label' => sprintf('%d - %d %s', $breakdownLimit - $breakdownOnDistance, $breakdownLimit, $longestDistanceForActivity->getSymbol()),
+                'label' => sprintf('%d - %d %s', $from, $breakdownLimit, $longestDistanceForActivity->getSymbol()),
+                'distanceFrom' => (int) round($from),
+                'distanceTo' => (int) round($breakdownLimit - 1),
+                'activityType' => $this->activityType->value,
                 'numberOfWorkouts' => 0,
                 'totalDistance' => 0,
                 'totalElevation' => 0,
@@ -77,6 +85,7 @@ final readonly class DistanceBreakdown
             if ($statistics[$distanceBreakdown]['movingTime'] > 0) {
                 $statistics[$distanceBreakdown]['averageSpeed'] = ($statistics[$distanceBreakdown]['totalDistance'] / $statistics[$distanceBreakdown]['movingTime']) * 3600;
             }
+            $statistics[$distanceBreakdown]['movingTimeHours'] = floor($statistics[$distanceBreakdown]['movingTime'] / 3600);
             $statistics[$distanceBreakdown]['movingTimeForHumans'] = CarbonInterval::seconds($statistics[$distanceBreakdown]['movingTime'])->cascade()->forHumans(['short' => true, 'minimumUnit' => 'minute']);
         }
 

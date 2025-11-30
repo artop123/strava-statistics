@@ -192,8 +192,8 @@
                     </a>
                 </div>
                 <div class="flex justify-center gap-x-1 text-xs text-center text-gray-500">
-                    <span>v0.5.0</span>
-                    <span class="hidden" data-latest-version data-current-version="v0.5.0">
+                    <span>v0.6.0</span>
+                    <span class="hidden" data-latest-version data-current-version="v0.6.0">
                         (latest: <a class="underline" href="https://github.com/robiningelbrecht/strava-statistics/releases/tag/%5BLATEST_VERSION%5D">[LATEST_VERSION]</a>)
                     </span>
                 </div>
@@ -373,14 +373,43 @@
     const initFilters = () => {
         const params = new URLSearchParams(window.location.search);
 
+        // date
         const from = document.querySelector('input[name="start-date[from]"]');
         const to = document.querySelector('input[name="start-date[to]"]');
         const fromValue = params.get("from");
         const toValue = params.get("to");
         
-        if (from && to && fromValue && toValue) {
+        if (from && fromValue) {
             from.value = fromValue;
+        }
+        
+        if (to && toValue) {
             to.value = toValue;
+        }
+
+        // distance
+        const distance_from = document.querySelector('input[name="distance[from]"]');
+        const distance_to = document.querySelector('input[name="distance[to]"]');
+        const distance_fromValue = params.get("distance-from");
+        const distance_toValue = params.get("distance-to");
+        
+        if (distance_from && distance_fromValue) {
+            distance_from.value = distance_fromValue;
+        }
+
+        if (distance_to && distance_toValue) {
+            distance_to.value = distance_toValue;
+        }
+        
+        // activity type
+        const activityTypeValue = params.get("activity-type");
+
+        if (activityTypeValue) {
+            const activityType = document.querySelector('input[id="' + activityTypeValue + '"]');
+
+            if (activityType) {
+                activityType.checked = true;
+            } 
         }
     }
 
