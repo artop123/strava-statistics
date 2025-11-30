@@ -104,6 +104,15 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
             )->build()
         );
 
+        $weeklyDistanceTimeCharts[ActivityType::ALL->value] = Json::encode(
+            WeeklyDistanceTimeChart::create(
+                activities: $allActivities,
+                unitSystem: $this->unitSystem,
+                translator: $this->translator,
+                now: $now
+            )->build()
+        );
+
         foreach ($activitiesPerActivityType as $activityType => $activities) {
             if ($activities->isEmpty()) {
                 continue;
