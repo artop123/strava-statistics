@@ -29,6 +29,15 @@ class ActivityTypeTest extends ContainerTestCase
         $this->assertMatchesJsonSnapshot($snapshot);
     }
 
+    public function testSvgIcon(): void
+    {
+        $snapshot = [];
+        foreach (ActivityType::cases() as $activityType) {
+            $snapshot[] = $activityType->getSvgIcon();
+        }
+        $this->assertMatchesJsonSnapshot($snapshot);
+    }
+
     public function testGetColor(): void
     {
         $snapshot = [];

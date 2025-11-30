@@ -4,7 +4,7 @@ Activities: Activities
 'Adaptive & Inclusive Sports': 'Adaptive & Inclusive Sports'
 Advanced: Advanced
 Afternoon: Afternoon
-All: 'All'
+All: All
 'All activities': 'All activities'
 'All time': 'All time'
 'Alpine Ski': 'Alpine Ski'
@@ -51,6 +51,7 @@ Evening: Evening
 Favourite: Favourite
 Feb: Feb
 'Filter on KOM segments': 'Filter on KOM segments'
+'Filter on activity type': 'Filter on activity type'
 'Filter on sport type': 'Filter on sport type'
 'Filter on starred segments': 'Filter on starred segments'
 'First workout': 'First workout'

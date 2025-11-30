@@ -42,6 +42,18 @@ enum ActivityType: string implements TranslatableInterface
         return $sportTypes;
     }
 
+    public function getSvgIcon(): string
+    {
+        return match ($this) {
+            ActivityType::RIDE => 'ride',
+            ActivityType::RUN, ActivityType::WALK => 'run',
+            ActivityType::WATER_SPORTS => 'water',
+            ActivityType::WINTER_SPORTS => 'winter',
+            ActivityType::OUTDOOR_SPORTS => 'outdoor',
+            default => 'other',
+        };
+    }
+
     public function trans(TranslatorInterface $translator, ?string $locale = null): string
     {
         return match ($this) {
