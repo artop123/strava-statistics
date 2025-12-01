@@ -25,17 +25,17 @@
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center justify-center">
+                                    {{ renderSvg('time') }}
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                <div class="flex items-center justify-center">
                                     {{ renderSvg('distance') }}
                                 </div>
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center justify-center">
                                     {{ renderSvg('elevation') }}
-                                </div>
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                <div class="flex items-center justify-center">
-                                    {{ renderSvg('time') }}
                                 </div>
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -71,13 +71,13 @@
                                     {{ renderComponent('activity-title', {'activity': activity, 'ellipses': 30}) }}
                                 </td>
                                 <td class="px-6 py-2">
+                                    {{ activity.getMovingTimeFormatted() }}
+                                </td>
+                                <td class="px-6 py-2">
                                     {{ renderComponent('measurement', {'measurement': activity.getDistance(), 'precision': activityType.getDistancePrecision()}) }}
                                 </td>
                                 <td class="px-6 py-2">
                                     <div class="w-[4rem]">{{ renderComponent('measurement', {'measurement': activity.getElevation(), 'precision': 0}) }}</div>
-                                </td>
-                                <td class="px-6 py-2">
-                                    {{ activity.getMovingTimeFormatted() }}
                                 </td>
                                 <td class="px-6 py-2">
                                     {% if activityType.prefersPaceOverSpeed() %}
@@ -470,6 +470,11 @@
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center justify-center">
+                                    {{ renderSvg('time') }}
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                <div class="flex items-center justify-center">
                                     {{ renderSvg('distance') }}
                                 </div>
                             </th>
@@ -478,22 +483,21 @@
                                     {{ renderSvg('elevation') }}
                                 </div>
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                <div class="flex items-center justify-center">
-                                    {{ renderSvg('time') }}
-                                </div>
-                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for statistic in daytimeStats.getData() %}
                             <tr class="bg-white border-b">
                                 <th scope="row" class="px-2 py-2 sticky left-0 bg-white font-medium text-gray-900 whitespace-nowrap">
-                                    <div>{{ statistic.daytime|trans}}</div>
-                                    <div class="font-normal text-xs">{{ statistic.daytime.getHours()[0] }}h - {{ statistic.daytime.getHours()[1] }}h</div>
+                                    <div data-tippy-content="{{ statistic.daytime.getHours()[0] }}h - {{ statistic.daytime.getHours()[1] }}h" style="cursor: help;">
+                                        {{ statistic.daytime|trans}}
+                                    </div>
                                 </th>
                                 <td class="px-6 py-2">
                                     {{ statistic.numberOfWorkouts }}
+                                </td>
+                                <td class="px-6 py-2 truncate">
+                                    {{ statistic.movingTimeHours|formatNumber(0) }}<span class="text-xs">h</span>
                                 </td>
                                 <td class="px-6 py-2 truncate">
                                     {% if statistic.totalDistance.toFloat() > 0 %}
@@ -505,9 +509,6 @@
                                 </td>
                                 <td class="px-6 py-2 truncate">
                                     {{ renderComponent('measurement', {'measurement': statistic.totalElevation, 'precision': 0}) }}
-                                </td>
-                                <td class="px-6 py-2 truncate">
-                                    {{ statistic.movingTimeForHumans }}
                                 </td>
                             </tr>
                         {% endfor %}
