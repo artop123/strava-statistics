@@ -52,6 +52,7 @@ final readonly class DaytimeStats
             $statistics[$daytime->value]['totalElevation'] += $activity->getElevation()->toFloat();
             $statistics[$daytime->value]['movingTime'] += $activity->getMovingTimeInSeconds();
             $statistics[$daytime->value]['averageDistance'] = $statistics[$daytime->value]['totalDistance'] / $statistics[$daytime->value]['numberOfWorkouts'];
+            $statistics[$daytime->value]['movingTimeHours'] = floor($statistics[$daytime->value]['movingTime'] / 3600);
             $statistics[$daytime->value]['movingTimeForHumans'] = CarbonInterval::seconds($statistics[$daytime->value]['movingTime'])->cascade()->forHumans(['short' => true, 'minimumUnit' => 'minute']);
             $statistics[$daytime->value]['percentage'] = round($statistics[$daytime->value]['movingTime'] / $totalMovingTime * 100, 2);
         }
