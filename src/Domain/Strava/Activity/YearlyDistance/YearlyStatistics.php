@@ -63,6 +63,10 @@ final readonly class YearlyStatistics
         foreach ($this->activities as $activity) {
             $year = $activity->getStartDate()->getYear();
 
+            if (!array_key_exists($year, $statistics)) {
+                continue;
+            }
+
             ++$statistics[$year]['numberOfRides'];
             $statistics[$year]['totalDistance'] += $activity->getDistance()->toFloat();
             $statistics[$year]['totalElevation'] += $activity->getElevation()->toFloat();
@@ -70,7 +74,6 @@ final readonly class YearlyStatistics
             $statistics[$year]['totalCalories'] += $activity->getCalories();
         }
 
-        // @phpstan-ignore-next-line
         $statistics = array_values($statistics);
         foreach ($statistics as $key => &$statistic) {
             $daysInYear = $this->getDaysInYear($statistic['year']->toInt());
@@ -98,7 +101,7 @@ final readonly class YearlyStatistics
                 $statistic['differenceInMovingTimeYearBefore'] = $difference;
             }
 
-            $statistics[$key]['totalDistance'] = Kilometer::from($statistic['totalDistance']);
+            $statistics[$key]['totalDistanceKm'] = Kilometer::from($statistic['totalDistance']);
             $statistics[$key]['totalElevation'] = Meter::from($statistic['totalElevation']);
         }
 

@@ -9,6 +9,7 @@ use App\Domain\Strava\Activity\ActivityHeatmapChart;
 use App\Domain\Strava\Activity\ActivityIntensity;
 use App\Domain\Strava\Activity\ActivityTotals;
 use App\Domain\Strava\Activity\ActivityType;
+use App\Domain\Strava\Activity\DashboardMinYear;
 use App\Domain\Strava\Activity\DaytimeStats\DaytimeStats;
 use App\Domain\Strava\Activity\DaytimeStats\DaytimeStatsCharts;
 use App\Domain\Strava\Activity\DistanceBreakdown;
@@ -57,6 +58,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         private FilesystemOperator $buildStorage,
         private TranslatorInterface $translator,
         private EFtpCalculator $eftpCalculator,
+        private DashboardMinYear $dashboardMinYear,
     ) {
     }
 
@@ -71,7 +73,8 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
         $allWeights = $this->athleteWeightRepository->findAll();
         $allYears = Years::create(
             startDate: $allActivities->getFirstActivityStartDate(),
-            endDate: $now
+            endDate: $now,
+            minYear: $this->dashboardMinYear->getYear(),
         );
         $allMonths = Months::create(
             startDate: $allActivities->getFirstActivityStartDate(),
@@ -100,7 +103,8 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
             YearlyDistanceChart::create(
                 activities: $allActivities,
                 translator: $this->translator,
-                now: $now
+                now: $now,
+                minYear: $this->dashboardMinYear->getYear(),
             )->build()
         );
 
@@ -109,7 +113,8 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                 activities: $allActivities,
                 unitSystem: $this->unitSystem,
                 translator: $this->translator,
-                now: $now
+                now: $now,
+                minYear: $this->dashboardMinYear->getYear(),
             )->build()
         );
 
@@ -124,6 +129,7 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                 unitSystem: $this->unitSystem,
                 translator: $this->translator,
                 now: $now,
+                minYear: $this->dashboardMinYear->getYear(),
             )->build()) {
                 $weeklyDistanceTimeCharts[$activityType->value] = Json::encode($chartData);
             }
@@ -155,7 +161,8 @@ final readonly class BuildDashboardHtmlCommandHandler implements CommandHandler
                     YearlyDistanceChart::create(
                         activities: $activities,
                         translator: $this->translator,
-                        now: $now
+                        now: $now,
+                        minYear: $this->dashboardMinYear->getYear(),
                     )->build()
                 );
 

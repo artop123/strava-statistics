@@ -15,6 +15,7 @@ final readonly class WeeklyDistanceTimeChart
         private UnitSystem $unitSystem,
         private TranslatorInterface $translator,
         private SerializableDateTime $now,
+        private ?int $minYear = null,
     ) {
     }
 
@@ -23,12 +24,14 @@ final readonly class WeeklyDistanceTimeChart
         UnitSystem $unitSystem,
         TranslatorInterface $translator,
         SerializableDateTime $now,
+        ?int $minYear = null,
     ): self {
         return new self(
             activities: $activities,
             unitSystem: $unitSystem,
             translator: $translator,
-            now: $now
+            now: $now,
+            minYear: $minYear,
         );
     }
 
@@ -37,10 +40,15 @@ final readonly class WeeklyDistanceTimeChart
      */
     public function build(): array
     {
+        $startDate = null !== $this->minYear && $this->minYear > 0
+            ? SerializableDateTime::fromString(sprintf('%d-01-01', $this->minYear))
+            : $this->activities->getFirstActivityStartDate();
+
         $weeks = Weeks::create(
-            startDate: $this->activities->getFirstActivityStartDate(),
+            startDate: $startDate,
             now: $this->now
         );
+
         $zoomValueSpan = 10;
         $data = $this->getData($weeks);
         if (empty(array_filter($data[0])) && empty(array_filter($data[1]))) {

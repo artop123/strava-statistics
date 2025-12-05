@@ -21,6 +21,7 @@ parameters:
     env(NTFY_URL): ''
     env(ZWIFT_LEVEL):
     env(ZWIFT_RACING_SCORE):
+    env(DASHBOARD_MIN_YEAR):
 
 services:
     # default configuration for services in *this* file
@@ -155,3 +156,9 @@ services:
     App\Domain\Zwift\ZwiftRacingScore:
         factory: [ 'App\Domain\Zwift\ZwiftRacingScore', fromOptionalString ]
         arguments: [ '%env(string:ZWIFT_RACING_SCORE)%' ]
+
+    App\Domain\Strava\Activity\DashboardMinYear:
+        factory: [ 'App\Domain\Strava\Activity\DashboardMinYear', from ]
+        arguments: [ 
+            '%env(int:default::DASHBOARD_MIN_YEAR)%'
+        ]

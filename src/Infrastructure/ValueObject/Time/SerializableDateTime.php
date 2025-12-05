@@ -107,7 +107,7 @@ class SerializableDateTime extends \DateTimeImmutable implements \JsonSerializab
         if (53 === $weekNumber && 12 === $this->getMonthWithoutLeadingZero()) {
             $weekNumber = 52;
         }
-        if (53 === $weekNumber && 1 === $this->getMonthWithoutLeadingZero()) {
+        if ($weekNumber > 50 && 1 === $this->getMonthWithoutLeadingZero()) {
             $weekNumber = 1;
         }
 
