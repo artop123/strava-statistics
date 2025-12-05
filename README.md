@@ -119,6 +119,10 @@ NTFY_URL=''
 # May only be necessary on Linux hosts, see File Permissions in Wiki
 #PUID=
 #PGID=
+# Minimum year to show in the dashboard
+# If you set this to 2023, only activities from 2023 and later will be shown in the dashboard graphs
+# Earlier activities will still be imported calculated in the stats
+#DASHBOARD_MIN_YEAR=2023
 ```
 
 ### weight.json

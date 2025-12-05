@@ -19,8 +19,14 @@ class Years extends Collection
     public static function create(
         SerializableDateTime $startDate,
         SerializableDateTime $endDate,
+        ?int $minYear = null,
     ): self {
         $years = Years::empty();
+
+        if (null !== $minYear && $minYear > 0) {
+            $startDate = SerializableDateTime::fromString(sprintf('%d-01-01', $minYear));
+        }
+
         $period = new \DatePeriod(
             $startDate->modify('first day of january this year'),
             new \DateInterval('P1Y'),

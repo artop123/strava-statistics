@@ -15,6 +15,7 @@ final readonly class YearlyDistanceChart
         private Activities $activities,
         private TranslatorInterface $translator,
         private SerializableDateTime $now,
+        private ?int $minYear,
     ) {
     }
 
@@ -22,11 +23,13 @@ final readonly class YearlyDistanceChart
         Activities $activities,
         TranslatorInterface $translator,
         SerializableDateTime $now,
+        ?int $minYear = null,
     ): self {
         return new self(
             activities: $activities,
             translator: $translator,
-            now: $now
+            now: $now,
+            minYear: $minYear,
         );
     }
 
@@ -58,6 +61,10 @@ final readonly class YearlyDistanceChart
         $series = [];
         /** @var \App\Infrastructure\ValueObject\Time\Year $year */
         foreach ($this->activities->getUniqueYears() as $year) {
+            if (null !== $this->minYear && $year->toInt() < $this->minYear) {
+                continue;
+            }
+
             $series[(string) $year] = [
                 'name' => (string) $year,
                 'type' => 'line',
